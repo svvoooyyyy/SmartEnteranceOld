@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:maxLength="10"
+        android:maxLines="1"
+        android:inputType="number"
+        android:id="@+id/main_activity_edit_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:hint="@string/main_activity_round_edit_text_text_teacher"
+        android:textColorHint="@color/colorOnBackground"
+        android:textColorLink="@color/colorOnBackground2"
+        android:textSize="20dp" />
+
+    <RadioButton
+        android:id="@+id/main_activity_radio_button_teacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_activity_edit_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/main_activity_round_button_text_teacher"
+        android:textColor="@color/colorOnBackground"
+        android:textSize="10pt" />
+
+    <RadioButton
+        android:checked="true"
+        android:id="@+id/main_activity_radio_button_student"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_activity_radio_button_teacher"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/main_activity_round_button_text_student"
+        android:textSize="10pt" />
+
+    <Button
+        android:id="@+id/main_activity_button_enter"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_activity_radio_button_student"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/secondary_color_rounded_button_30"
+        android:elevation="2dp"
+        android:text="@string/main_activity_button_text_enter"
+        android:textColor="@color/colorOnSecondary" />
+
+
+</RelativeLayout>
