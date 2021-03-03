@@ -181,19 +181,17 @@
         android:layout_weight="1.7">
 
         <Button
-
-            android:id="@+id/activity_teacher_button_scan"
+            android:id="@+id/scanner"
             android:layout_width="250dp"
-            android:layout_height="70dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/secondary_color_rounded_button_50"
-            android:text="Сканировать"
-            android:textColor="@color/colorOnSecondary"
-            android:textSize="30dp" />
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:onClick="scanQR"
+            android:text="QR-код"
+            android:textSize="18dp" >
+        </Button>
+
 
         <Button
             android:layout_width="70dp"
@@ -201,7 +199,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_toRightOf="@+id/activity_teacher_button_scan"
+            android:layout_toRightOf="@+id/scanner"
             android:background="@drawable/secondary_color_rounded_button_50"
             android:text="X"
             android:textColor="@color/colorOnSecondary"
