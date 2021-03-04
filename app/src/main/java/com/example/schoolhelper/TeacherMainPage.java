@@ -18,27 +18,19 @@ import android.widget.Toast;
 
 import com.pnuema.java.barcode.Barcode;
 
-import static com.example.schoolhelper.ScannerActivity.ACTION_SCAN;
-
 public class TeacherMainPage extends AppCompatActivity {
 
     public static final int TEACHER_MAIN_PAGE_REQUEST_CODE = 12;
-    ImageView activity_teacher_image_view_back;
     Button scanner_button;
+
+
+    static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_main_page);
-        activity_teacher_image_view_back = findViewById(R.id.activity_teacher_image_view_back);
 
-
-        activity_teacher_image_view_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     // Запускаемм сканер штрих кода:
