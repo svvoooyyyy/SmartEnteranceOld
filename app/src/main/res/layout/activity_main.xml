@@ -11,8 +11,9 @@
 
     <ImageView
         android:layout_width="@dimen/start_screen_logo_image_size"
-        android:layout_height="@dimen/start_screen_logo_image_size"
-        android:src="" />
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/start_screen_lable" />
 
     <TextView
         android:layout_width="match_parent"

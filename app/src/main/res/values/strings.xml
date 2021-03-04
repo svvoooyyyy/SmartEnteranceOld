@@ -3,7 +3,7 @@
     <string name="main_activity_round_button_text_teacher">Учитель</string>
     <string name="main_activity_round_button_text_student">Ученик</string>
     <string name="main_activity_round_title_text_teacher">Как вы хотите использовать приложение?</string>
-    <string name="main_activity_button_text_enter">Вход</string>
+    <string name="main_activity_button_text_enter">Продолжить</string>
 
     <string name="activity_teacher_text_view_text_enters_m">Я дежурный</string>
     <string name="activity_teacher_text_view_text_enters_w">Я дежурная</string>

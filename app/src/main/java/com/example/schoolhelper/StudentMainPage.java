@@ -46,9 +46,6 @@ public class StudentMainPage extends AppCompatActivity {
 
 
         qr_code = findViewById(R.id.qr_code);
-
-
-        activity_student_image_view_back = findViewById(R.id.activity_student_image_view_back);
         activity_student_image_view_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
