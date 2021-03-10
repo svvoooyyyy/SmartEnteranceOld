@@ -1,10 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">school helper</string>
 
-    <string name="main_activity_round_button_text_teacher">Teacher</string>
-    <string name="main_activity_round_button_text_student">Student</string>
-    <string name="main_activity_round_title_text_teacher">How you want to use app?</string>
-    <string name="main_activity_button_text_enter">Continue</string>
+
+    <string name="main_activity_round_button_text_teacher">Учитель</string>
+    <string name="main_activity_round_button_text_student">Ученик</string>
+    <string name="main_activity_round_title_text_teacher">Как вы хотите использовать приложение?</string>
+    <string name="main_activity_button_text_enter">Продолжить</string>
 
     <string name="activity_teacher_text_view_text_enters_m">Я дежурный</string>
     <string name="activity_teacher_text_view_text_enters_w">Я дежурная</string>
@@ -12,6 +13,5 @@
     <string name="activity_teacher_radio_button_text_enter_2">входа 2</string>
     <string name="activity_teacher_radio_button_text_enter_3">входа 3</string>
     <string name="acyivity_teacher_text_view_output">Вывод:</string>
-
 
 </resources>

@@ -18,7 +18,6 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.pnuema.java.barcode.Barcode;
 
 public class StudentMainPage extends AppCompatActivity {
-    ImageView activity_student_image_view_back;
     ImageView qr_code;
     String code_value = "0123456789";
 
@@ -43,14 +42,5 @@ public class StudentMainPage extends AppCompatActivity {
         } catch (WriterException e) {
             e.printStackTrace();
         }
-
-
-        qr_code = findViewById(R.id.qr_code);
-        activity_student_image_view_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 }
