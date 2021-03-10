@@ -9,6 +9,12 @@
     android:padding="@dimen/simple_padding"
     tools:context=".StudentMainPage">
 
+<!--    <android.support.v7.widget.Toolbar-->
+<!--        android:id="@+id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/colorPrimary" />-->s
+
     <LinearLayout
         android:layout_width="@dimen/qr_code_image_size"
         android:layout_height="@dimen/qr_code_image_size"
@@ -29,7 +35,7 @@
     </LinearLayout>
 
 
-    <TextViews
+    <TextView
         android:layout_marginTop="@dimen/simple_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

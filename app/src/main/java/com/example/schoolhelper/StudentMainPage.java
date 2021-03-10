@@ -21,6 +21,8 @@ public class StudentMainPage extends AppCompatActivity {
     ImageView qr_code;
     String code_value = "0123456789";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
