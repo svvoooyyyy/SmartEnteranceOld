@@ -20,6 +20,8 @@ android {
 }
 
 dependencies {
+    //noinspection GradleCompatible
+    compile 'com.android.support:design:22.2.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.pnuema.java:barcode:1.9'
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'

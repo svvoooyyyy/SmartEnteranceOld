@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+<!--    xxhdpi (3.0x) - 960x1440 dp-->
     <dimen name="qr_code_image_size">900dp</dimen>
 
-    <dimen name="simple_margin">70dp</dimen>
+    <dimen name="simple_padding">60dp</dimen>
+    <dimen name="simple_margin">40dp</dimen>
 
 </resources>

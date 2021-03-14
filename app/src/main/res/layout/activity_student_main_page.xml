@@ -5,56 +5,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:padding="@dimen/simple_padding"
     tools:context=".StudentMainPage">
 
-<!--    <android.support.v7.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@color/colorPrimary" />-->s
+
+    <include layout="@layout/student_activity_toolbar" />
 
     <LinearLayout
-        android:layout_width="@dimen/qr_code_image_size"
-        android:layout_height="@dimen/qr_code_image_size"
-        android:background="@drawable/rounded_button_20"
-        android:elevation="5dp"
-        android:gravity="center"
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:translationZ="5dp">
+        android:padding="@dimen/simple_padding">
 
-        <ImageView
-            android:id="@+id/qr_code"
+        <LinearLayout
+            android:layout_width="@dimen/qr_code_image_size"
+            android:layout_height="@dimen/qr_code_image_size"
+            android:background="@drawable/rounded_button_20"
+            android:elevation="5dp"
+            android:gravity="center"
+
+            android:orientation="vertical"
+            android:translationZ="5dp">
+
+            <ImageView
+                android:id="@+id/qr_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@mipmap/frame" />
+
+
+        </LinearLayout>
+
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@mipmap/frame" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/simple_margin"
+            android:gravity="center"
+            android:text="Код Имя Фамилия"
+            android:textColor="@color/simple_text_color"
+            android:textSize="18pt" />
 
+        <Button
+            android:id="@+id/activity_student_button_scan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/simple_margin"
+            android:background="@drawable/rounded_button_1000"
+            android:text="Нужен другой код?"
+            android:textColor="@color/colorBackground"
+            android:textSize="10pt" />
 
     </LinearLayout>
-
-
-    <TextView
-        android:layout_marginTop="@dimen/simple_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Код Имя Фамилия"
-        android:textColor="@color/simple_text_color"
-        android:textSize="18pt" />
-
-    <Button
-        android:layout_marginTop="@dimen/simple_margin"
-        android:id="@+id/activity_student_button_scan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/rounded_button_1000"
-        android:text="Нужен другой код?"
-        android:textColor="@color/colorBackground"
-        android:textSize="10pt" />
 
 </LinearLayout>

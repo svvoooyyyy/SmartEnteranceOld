@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    ldpi (0.75x) -240x360 dp-->
 
     <dimen name="elevation">2dp</dimen>
 
@@ -10,11 +11,11 @@
 
     <dimen name="simple_activity_padding">20dp</dimen>
     <dimen name="start_screen_logo_image_size">100dp</dimen>
-    <dimen name="simple_margin">20dp</dimen>
     <dimen name="double_margin">40dp</dimen>
-    <dimen name="simple_padding">20dp</dimen>
+
 
 
     <dimen name="qr_code_image_size">225dp</dimen>
-
+    <dimen name="simple_margin">10dp</dimen>
+    <dimen name="simple_padding">10dp</dimen>
 </resources>

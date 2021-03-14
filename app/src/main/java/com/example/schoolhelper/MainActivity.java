@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // finding view
         mainActivityButtonEnter = findViewById(R.id.main_activity_button_enter);
         mainActivityRadioButtonTeacher = findViewById(R.id.main_activity_radio_button_teacher);
