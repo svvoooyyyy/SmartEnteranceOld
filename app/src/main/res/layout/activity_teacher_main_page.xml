@@ -5,14 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="@dimen/simple_padding"
     tools:context=".TeacherMainPage">
 
+        <LinearLayout
+
+            android:layout_gravity="center"
+            android:layout_width="@dimen/big_element_size"
+            android:layout_height="@dimen/big_element_size">
+
+            <include layout="@layout/scanner"/>
+        </LinearLayout>
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.7">
+        android:layout_height="match_parent">
+
 
         <Button
             android:id="@+id/scanner"
@@ -23,20 +32,12 @@
             android:gravity="center"
             android:onClick="scanQR"
             android:text="QR-код"
-            android:textSize="18dp" >
-        </Button>
-
+            android:textSize="18dp"/>
 
         <Button
-            android:layout_width="70dp"
+            android:layout_width="@dimen/small_element_size"
             android:layout_height="70dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_toRightOf="@+id/scanner"
-            android:text="X"
-            android:textSize="30dp" />
-
-    </RelativeLayout>
-
+            android:text="@string/activity_teacher_delete_button_text"
+            android:textSize="@dimen/simple_text_size" />
+    </LinearLayout>
 </LinearLayout>

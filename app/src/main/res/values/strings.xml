@@ -12,6 +12,9 @@
     <string name="activity_teacher_radio_button_text_enter_2">входа 2</string>
     <string name="activity_teacher_radio_button_text_enter_3">входа 3</string>
     <string name="acyivity_teacher_text_view_output">Вывод:</string>
+    <string name="activity_teacher_delete_button_text">X</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
