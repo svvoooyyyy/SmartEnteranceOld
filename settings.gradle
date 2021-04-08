@@ -1,2 +1,3 @@
+include ':poishadow-all'
 include ':app'
 rootProject.name='school helper'

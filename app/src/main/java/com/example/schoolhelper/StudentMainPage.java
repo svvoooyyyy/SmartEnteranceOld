@@ -1,28 +1,24 @@
 package com.example.schoolhelper;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.Image;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
-import com.pnuema.java.barcode.Barcode;
 
 public class StudentMainPage extends AppCompatActivity {
     ImageView qr_code;
@@ -63,6 +59,8 @@ public class StudentMainPage extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.base_toolbar);
         setSupportActionBar(toolbar);
 
+
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -82,5 +80,8 @@ public class StudentMainPage extends AppCompatActivity {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+        setResult(MainActivity.RESULT_BACK, null);
     }
+
+
 }

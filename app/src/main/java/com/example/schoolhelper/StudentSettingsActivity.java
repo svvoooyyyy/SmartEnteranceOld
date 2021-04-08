@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import static com.example.schoolhelper.MainActivity.PREF_USER_MODE;
 
 public class StudentSettingsActivity extends AppCompatActivity {
 
@@ -23,11 +22,14 @@ public class StudentSettingsActivity extends AppCompatActivity {
         delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt(PREF_USER_MODE, -1);
+                editor.remove(MainActivity.PREF_USER_MODE);
+                editor.putInt(MainActivity.PREF_USER_MODE, -1);
+                Log.e("TAG", "onClick: "+preferences.getInt(MainActivity.PREF_USER_MODE, -100));
                 editor.apply();
-                finish();
+                Log.e("TAG", "onClick: "+preferences.getInt(MainActivity.PREF_USER_MODE,-100));
             }
         });
     }

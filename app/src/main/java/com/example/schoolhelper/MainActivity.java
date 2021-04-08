@@ -5,17 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     //Вот так вот
     //Shared preferences
     public static final String PREF_USER_MODE = "user_mode";
+    public static final int ACTIVITY_BACK_CODE = 123;
+    public static final int RESULT_BACK = 321;
 
     // variables
     Button mainActivityButtonEnter;
@@ -34,18 +40,19 @@ public class MainActivity extends AppCompatActivity {
 
         // получение данных
         SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
-        int userMode = preferences.getInt(PREF_USER_MODE, -1);
+        int userMode = -1;//preferences.getInt(PREF_USER_MODE, -1);
+        Log.e("dfghjkl","userMode="+userMode);
         switch (userMode) {
             case -1:
                 break;
             case 0: { // ученик
                 Intent intent = new Intent(MainActivity.this, StudentMainPage.class);
-                startActivity(intent);
+                startActivityForResult(intent, ACTIVITY_BACK_CODE);
                 break;
             }
             case 1: { // учитель
                 Intent intent = new Intent(MainActivity.this, TeacherMainPage.class);
-                startActivity(intent);
+                startActivityForResult(intent, ACTIVITY_BACK_CODE);
                 break;
             }
             default: // тип записи не выбран
@@ -71,10 +78,18 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, StudentMainPage.class);
                 }
                 editor.apply();
-                startActivity(intent);
+                startActivityForResult(intent, ACTIVITY_BACK_CODE);
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_BACK && requestCode == ACTIVITY_BACK_CODE) {
+            finish();
+        }
     }
 
     @Override

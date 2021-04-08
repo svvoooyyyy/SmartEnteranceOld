@@ -20,13 +20,12 @@
 
 
     <LinearLayout
+        android:id="@+id/activity_teacher_main_page_learners_out"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:layout_width="@dimen/small_element_size"
-            android:layout_height="70dp"
-            android:text="@string/activity_teacher_delete_button_text"
-            android:textSize="@dimen/simple_text_size" />
+
+
     </LinearLayout>
 </LinearLayout>
