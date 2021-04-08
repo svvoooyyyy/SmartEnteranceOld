@@ -4,7 +4,7 @@
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="false" />
+        android:required="true" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StudentSettingsActivity"></activity>
+        <activity android:name=".StudentSettingsActivity"/>
         <activity android:name=".StudentMainPage" />
         <activity android:name=".TeacherMainPage" />
         <activity android:name=".MainActivity">

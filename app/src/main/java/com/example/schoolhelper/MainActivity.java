@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
         int userMode = preferences.getInt(PREF_USER_MODE, -1);
         switch (userMode) {
+            case -1:
+                break;
             case 0: { // ученик
                 Intent intent = new Intent(MainActivity.this, StudentMainPage.class);
                 startActivity(intent);

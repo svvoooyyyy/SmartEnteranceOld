@@ -21,4 +21,7 @@
     <dimen name="qr_code_image_size">225dp</dimen>
     <dimen name="simple_margin">10dp</dimen>
     <dimen name="simple_padding">10dp</dimen>
+
+
+    <dimen name="start_screen_logo_image_size_horisontal">200dp</dimen>
 </resources>
