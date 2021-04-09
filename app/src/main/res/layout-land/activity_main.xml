@@ -10,12 +10,13 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:layout_width="@dimen/start_screen_logo_image_size_horisontal"
+        android:layout_width="@dimen/start_screen_logo_image_size_horizontal"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:src="@drawable/start_screen_lable" />
 
     <LinearLayout
+        android:layout_marginLeft="@dimen/simple_margin"
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"

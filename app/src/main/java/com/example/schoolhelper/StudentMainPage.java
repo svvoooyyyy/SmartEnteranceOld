@@ -29,7 +29,7 @@ public class StudentMainPage extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_student_menu, menu);
+        getMenuInflater().inflate(R.menu.standart_menu, menu);
         this.menu = menu;
         return super.onCreateOptionsMenu(menu);
     }

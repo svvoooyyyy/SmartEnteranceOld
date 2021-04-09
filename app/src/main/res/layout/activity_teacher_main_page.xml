@@ -5,27 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/simple_padding"
     tools:context=".TeacherMainPage">
 
-        <LinearLayout
-
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/big_element_size">
-
-            <include layout="@layout/scanner"/>
-
-        </LinearLayout>
-
+    <include layout="@layout/standart_toolbar"/>
 
     <LinearLayout
-        android:id="@+id/activity_teacher_main_page_learners_out"
-        android:orientation="vertical"
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/big_element_size"
+        android:layout_gravity="center">
+
+        <include layout="@layout/scanner" />
+
+    </LinearLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:padding="@dimen/simple_padding"
+            android:id="@+id/activity_teacher_main_page_learners_out"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/small_element_size"
+                android:background="@drawable/student_card">
 
 
-    </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>

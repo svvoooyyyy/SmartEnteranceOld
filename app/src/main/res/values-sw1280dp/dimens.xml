@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    xxxhdpi (4.0x) - 1280x1920 dp-->
+    <!--    xxxhdpi (4.0x) - 1280x1920 dp-->
+    <!--    elements-->
     <dimen name="qr_code_image_size">1200dp</dimen>
-
+    <dimen name="start_screen_logo_image_size_horizontal">1046dp</dimen>
+    <!--sizes-->
     <dimen name="simple_margin">500dp</dimen>
     <dimen name="simple_padding">80dp</dimen>
 
