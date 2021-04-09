@@ -8,39 +8,148 @@
 
     <include layout="@layout/standart_toolbar" />
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorSecondary"
-            android:layoutDirection="rtl"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/settings_delete_user_mode_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/small_margin"
-                android:background="@drawable/rounded_button_7_dark"
-                android:text="delete?"
-                android:textColor="@color/colorBackground" />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Вы не ученик?"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/simple_text_size" />
+                android:layout_height="wrap_content"
+                android:background="@color/colorSecondary"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/student_settings_delete_user_mode_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:background="@drawable/rounded_button_7_dark"
+                    android:text="@string/delete_button_text"
+                    android:textColor="@color/colorBackground" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/student_settings_change_mode_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/simple_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/student_settings_save_user_surname_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:background="@drawable/rounded_button_7_dark"
+                    android:text="@string/save_button_text"
+                    android:textColor="@color/colorBackground" />
+
+                <EditText
+
+                    android:id="@+id/student_settings_edit_text_surname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/student_settings_surname_edit_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/simple_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorSecondary"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/student_settings_save_user_name_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:background="@drawable/rounded_button_7_dark"
+                    android:text="@string/save_button_text"
+                    android:textColor="@color/colorBackground" />
+
+                <EditText
+                    android:id="@+id/student_settings_edit_text_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/student_settings_name_edit_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/simple_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/student_settings_save_user_last_name_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:background="@drawable/rounded_button_7_dark"
+                    android:text="@string/save_button_text"
+                    android:textColor="@color/colorBackground" />
+
+                <EditText
+                    android:id="@+id/student_settings_edit_text_last_name"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/student_settings_last_name_edit_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/simple_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorSecondary"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal">
+
+                <Button
+
+                    android:id="@+id/student_settings_save_user_id_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:background="@drawable/rounded_button_7_dark"
+                    android:text="@string/save_button_text"
+                    android:textColor="@color/colorBackground" />
+
+                <EditText
+                    android:id="@+id/student_settings_edit_text_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/student_settings_id_edit_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/simple_text_size" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
-
-
-    </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>

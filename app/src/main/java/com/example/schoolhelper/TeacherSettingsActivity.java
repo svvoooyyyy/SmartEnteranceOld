@@ -1,31 +1,15 @@
 package com.example.schoolhelper;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.FileProvider;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.DataFormat;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Date;
 
 
 public class TeacherSettingsActivity extends AppCompatActivity {
@@ -33,6 +17,10 @@ public class TeacherSettingsActivity extends AppCompatActivity {
 
     // Открытый файл
     Workbook openedBook;
+
+    Button shareDataButton;
+    Button importDataButton;
+    Button changeUserModeButton;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -52,6 +40,12 @@ public class TeacherSettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        shareDataButton = findViewById(R.id.teacher_settings_share_data_button);
+        importDataButton = findViewById(R.id.teacher_settings_import_data_button);
+        changeUserModeButton = findViewById(R.id.teacher_settings_delete_user_mode_button);
+
+        // some sheets works there \/
 
         System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");

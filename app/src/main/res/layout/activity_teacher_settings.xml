@@ -10,25 +10,108 @@
     <include layout="@layout/standart_toolbar" />
 
     <LinearLayout
-        android:padding="@dimen/small_padding"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
+        <LinearLayout
+            android:gravity="center"
+            android:padding="@dimen/small_padding"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/teacher_settings_export_button" />
+            android:layout_height="@dimen/settings_element_size"
+            android:background="@color/colorSecondary"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/teacher_settings_import_button" />
+            <Button
+                android:id="@+id/teacher_settings_delete_user_mode_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button_7_dark"
+                android:text="@string/delete_button_text"
+                android:textColor="@color/colorBackground" />
 
-        <Button
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/teacher_settings_change_mode_text"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/simple_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:padding="@dimen/small_padding"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/teacher_settings_change_user_mode_button" />
+            android:layout_height="@dimen/settings_element_size"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/teacher_settings_import_data_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button_7_dark"
+                android:text="@string/import_button_text"
+                android:textColor="@color/colorBackground" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="загрузить базу данных"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/simple_text_size" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:gravity="center"
+            android:padding="@dimen/small_padding"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/settings_element_size"
+            android:background="@color/colorSecondary"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/teacher_settings_share_data_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button_7_dark"
+                android:text="@string/share_button_text"
+                android:textColor="@color/colorBackground" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="share data"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/simple_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/settings_element_size"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="v 1.0"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/simple_text_size" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

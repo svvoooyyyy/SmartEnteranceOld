@@ -15,6 +15,7 @@
     <dimen name="double_margin">40dp</dimen>
     <dimen name="small_padding">3dp</dimen>
     <dimen name="small_margin">4dp</dimen>
+    <dimen name="settings_element_size">55dp</dimen>
 
 
     <!-- optimized -->

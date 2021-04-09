@@ -4,6 +4,7 @@
     <!--    elements-->
     <dimen name="qr_code_image_size">1200dp</dimen>
     <dimen name="start_screen_logo_image_size_horizontal">1046dp</dimen>
+    <dimen name="settings_element_size">220dp</dimen>
     <!--sizes-->
     <dimen name="simple_margin">500dp</dimen>
     <dimen name="simple_padding">80dp</dimen>
