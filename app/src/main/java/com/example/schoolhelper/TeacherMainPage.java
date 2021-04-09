@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,9 +48,9 @@ public class TeacherMainPage extends AppCompatActivity {
 
     // имя файла
     public static final String FILE_NAME = "saved_data.xls";
-    String TAG = "tag";
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+    private static final String TAG = "tag";
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+    private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
 
 
     private ArrayList<Student> authorisedStudentsData;
@@ -57,8 +59,11 @@ public class TeacherMainPage extends AppCompatActivity {
 
     private CodeScanner mCodeScanner;
     private LinearLayout learnersOut;
-
     Menu menu;
+
+    // тосты из сторонних потоков
+    Handler toastHandler;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,15 +93,20 @@ public class TeacherMainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_main_page);
-
         Toolbar toolbar = findViewById(R.id.base_toolbar);
         setSupportActionBar(toolbar);
-
-
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        // тосты из сторонних потоков
+        toastHandler = new Handler(getMainLooper()) {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                if (msg.what == 112)
+                    Toast.makeText(TeacherMainPage.this, (String) msg.obj, Toast.LENGTH_SHORT).show();
+            }
+        };
 
         // получаем данные
         authorisedStudentsData = new ArrayList<>(5);
@@ -177,75 +187,15 @@ public class TeacherMainPage extends AppCompatActivity {
     protected void onPause() {
         mCodeScanner.releaseResources();
 
-
-        // генерируем новый файл EXEL
-        Workbook openedBook = new HSSFWorkbook();
-        Sheet sheet = openedBook.createSheet("Entrance Helper");
-
-
-        {// шапка таблицы
-            Row row = sheet.createRow(0);
-            Cell[] cells = new Cell[6];
-            for (int i = 0; i < cells.length; i++) cells[i] = row.createCell(i);
-            cells[0].setCellValue("Дата");
-            cells[1].setCellValue("Время");
-            cells[2].setCellValue("ФИО");
-            cells[3].setCellValue("Группа");
-            cells[4].setCellValue("Событие");
-            cells[5].setCellValue("Корпус посещения1");
-        }
-
-        // тело таблицы
-        int excelRowPoz = 1;
-        Iterator<EnteredUnit> iterator = studentsList.iterator();
-        Log.e(TAG, "onPause: size=" + studentsList.size());
-        while (iterator.hasNext()) {
-            Log.e(TAG, "onPause: " + 123456789);
-            // событие прохода
-            EnteredUnit current = iterator.next();
-
-            Date point = new Date(current.unixTimePoint);
-
-
-            // строка
-            Row row = sheet.createRow(excelRowPoz);
-            Cell[] cells = new Cell[6];
-            for (int i = 0; i < cells.length; i++) cells[i] = row.createCell(i);
-            cells[0].setCellValue(dateFormat.format(point));
-            cells[1].setCellValue(timeFormat.format(point));
-            if (current.student == null) {
-                cells[2].setCellValue("-");
-                cells[3].setCellValue("-");
-            } else {
-                cells[2].setCellValue(current.student.name);
-                cells[3].setCellValue(current.student.group);
-                //DataFormat format = openedBook.createDataFormat();
-                //        CellStyle dateStyle = openedBook.createCellStyle();
-                //        dateStyle.setDataFormat(format.getFormat("(ss.MM.hh) dd.mm.yyyy"));
-                //        birthdate.setCellStyle(dateStyle);
-            }
-            cells[4].setCellValue("вход");
-            cells[5].setCellValue("ГБОУ Школа № 1852");// TODO
-
-
-            excelRowPoz++;
-        }
-
-        // Записываем всё в файл
-        saveEXELDataInXlsFile(openedBook);
-        try {
-            if (openedBook != null)
-                openedBook.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        SaveThread thread = new SaveThread();
+        thread.start();
 
         super.onPause();
     }
 
 
     // -------------------------- вспомогательные методы --------------------------
+
 
     // ввод студента
     private void enterStudent(long id) {
@@ -304,29 +254,103 @@ public class TeacherMainPage extends AppCompatActivity {
         });
     }
 
-    // сохранение EXEL в файл
-    private void saveEXELDataInXlsFile(Workbook data) {
+
+    // поток сохранения данных
+    private class SaveThread extends Thread {
+        @Override
+        public void run() {
+            super.run();
+
+            // генерируем новый файл EXEL
+            Workbook openedBook = new HSSFWorkbook();
+            Sheet sheet = openedBook.createSheet("Entrance Helper");
 
 
-        FileOutputStream fileOutputStream = null;
-        try {
-            fileOutputStream = openFileOutput(FILE_NAME, MODE_PRIVATE);
-            data.write(fileOutputStream);
+            {// шапка таблицы
+                Row row = sheet.createRow(0);
+                Cell[] cells = new Cell[6];
+                for (int i = 0; i < cells.length; i++) cells[i] = row.createCell(i);
+                cells[0].setCellValue("Дата");
+                cells[1].setCellValue("Время");
+                cells[2].setCellValue("ФИО");
+                cells[3].setCellValue("Группа");
+                cells[4].setCellValue("Событие");
+                cells[5].setCellValue("Корпус посещения1");
+            }
 
-            Toast.makeText(this, "Данные сохранены", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Toast.makeText(this, "Ошибка сохранения", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        } finally {
+            // тело таблицы
+            int excelRowPoz = 1;
+            Iterator<EnteredUnit> iterator = studentsList.iterator();
+            while (iterator.hasNext()) {
+                // событие прохода
+                EnteredUnit current = iterator.next();
+
+                Date point = new Date(current.unixTimePoint);
+
+
+                // строка
+                Row row = sheet.createRow(excelRowPoz);
+                Cell[] cells = new Cell[6];
+                for (int i = 0; i < cells.length; i++) cells[i] = row.createCell(i);
+                cells[0].setCellValue(dateFormat.format(point));
+                cells[1].setCellValue(timeFormat.format(point));
+                if (current.student == null) {
+                    cells[2].setCellValue("-");
+                    cells[3].setCellValue("-");
+                } else {
+                    cells[2].setCellValue(current.student.name);
+                    cells[3].setCellValue(current.student.group);
+                    //DataFormat format = openedBook.createDataFormat();
+                    //        CellStyle dateStyle = openedBook.createCellStyle();
+                    //        dateStyle.setDataFormat(format.getFormat("(ss.MM.hh) dd.mm.yyyy"));
+                    //        birthdate.setCellStyle(dateStyle);
+                }
+                cells[4].setCellValue("вход");
+                cells[5].setCellValue("ГБОУ Школа № 1852");// TODO
+
+
+                excelRowPoz++;
+            }
+
+            // Записываем всё в файл
+            saveEXELDataInXlsFile(openedBook);
             try {
-                if (fileOutputStream != null)
-                    fileOutputStream.close();
+                if (openedBook != null)
+                    openedBook.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
 
+        private void saveEXELDataInXlsFile(Workbook data) {
 
+
+            FileOutputStream fileOutputStream = null;
+            try {
+                fileOutputStream = openFileOutput(FILE_NAME, MODE_PRIVATE);
+                data.write(fileOutputStream);
+
+                Message message = new Message();
+                message.what = 112;
+                message.obj = "Данные сохранены";
+                toastHandler.sendMessage(message);
+            } catch (IOException e) {
+
+                Message message = new Message();
+                message.what = 112;
+                message.obj = "Ошибка сохранения";
+                toastHandler.sendMessage(message);
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (fileOutputStream != null)
+                        fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

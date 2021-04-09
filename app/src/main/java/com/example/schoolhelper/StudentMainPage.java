@@ -59,11 +59,6 @@ public class StudentMainPage extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.base_toolbar);
         setSupportActionBar(toolbar);
 
-
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         qr_code = findViewById(R.id.qr_code);
 
         // creating qr code
