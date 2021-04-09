@@ -2,15 +2,16 @@
 <resources>
 
 
-    <string name="main_activity_round_button_text_teacher">Учитель</string>
-    <string name="main_activity_round_button_text_student">Ученик</string>
+    <string name="main_activity_round_button_text_teacher">учитель</string>
+    <string name="main_activity_round_button_text_student">ученик</string>
     <string name="main_activity_round_title_text_teacher">как вы хотите использовать приложение?</string>
     <string name="main_activity_button_text_enter">продолжить</string>
     <string name="import_button_text">загрузить</string>
     <string name="share_button_text">поделиться</string>
+
+    <string name="teacher_settings_import_data_text">загрузить базу данных</string>
     <string name="teacher_settings_import_button">import</string>
-    <string name="teacher_settings_change_mode_text">You are not teacher?</string>
-    <string name="student_settings_change_mode_text">Вы не ученик?</string>
+    <string name="student_settings_change_mode_text">вы не ученик?</string>
     <string name="delete_button_text">удалить</string>
     <string name="save_button_text">сохранить</string>
     <string name="student_settings_last_name_edit_text">отчество</string>
@@ -18,8 +19,11 @@
     <string name="student_settings_name_edit_text">имя</string>
     <string name="student_settings_surname_edit_text">фамилия</string>
 
+    <string name="teacher_settings_share_data_text">поделиться данными</string>
+
 
     <string name="teacher_settings_export_button">экспорт</string>
+    <string name="teacher_settings_change_mode_text">вы не учитель?</string>
 
 
 </resources>

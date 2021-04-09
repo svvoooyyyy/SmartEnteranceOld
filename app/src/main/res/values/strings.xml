@@ -3,7 +3,6 @@
 
     <string name="main_activity_round_button_text_teacher">teacher</string>
     <string name="main_activity_round_button_text_student">student</string>
-    <string name="main_activity_round_title_text_teacher">how you want to use app?</string>
     <string name="main_activity_button_text_enter">continue</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
@@ -21,6 +20,10 @@
     <string name="student_settings_id_edit_text">moskvenok id</string>
     <string name="student_settings_name_edit_text">name</string>
     <string name="student_settings_surname_edit_text">surname</string>
+    <string name="version" translatable="false">v 1.0</string>
+    <string name="teacher_settings_share_data_text">share data</string>
+    <string name="teacher_settings_import_data_text">import data base</string>
+    <string name="main_activity_round_title_text_teacher">how do you want to use the app?</string>
 
 
 </resources>

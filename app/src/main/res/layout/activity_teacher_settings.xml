@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="загрузить базу данных"
+                android:text="@string/teacher_settings_import_data_text"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/simple_text_size" />
 
@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="share data"
+                android:text="@string/teacher_settings_share_data_text"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/simple_text_size" />
 
@@ -107,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="v 1.0"
+                android:text="@string/version"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/simple_text_size" />
 
