@@ -2,6 +2,8 @@
 <resources>
     <!--    xhdpi (2.0x) - 640x960 dp-->
 
+    <!-- hdpi 960 width -->
+
     <!--    elements-->
     <dimen name="qr_code_image_size">600dp</dimen>
     <dimen name="start_screen_logo_image_size">264dp</dimen>

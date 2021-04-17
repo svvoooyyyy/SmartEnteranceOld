@@ -2,6 +2,8 @@
 <resources>
     <!--    hdpi (1.5x) - 480x720 dp-->
 
+    <!-- mdpi 480 width -->
+
     <!--    elements-->
     <dimen name="qr_code_image_size">450dp</dimen>
     <dimen name="start_screen_logo_image_size">198dp</dimen>

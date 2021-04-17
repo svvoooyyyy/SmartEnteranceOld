@@ -18,8 +18,8 @@
         android:padding="@dimen/simple_padding">
 
         <LinearLayout
-            android:layout_width="@dimen/qr_code_image_size"
-            android:layout_height="@dimen/qr_code_image_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/rounded_button_20"
             android:elevation="5dp"
             android:gravity="center"
@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/qr_code"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/qr_code_image_size"
+                android:layout_height="@dimen/qr_code_image_size"
                 android:background="@drawable/no_code" />
 
 

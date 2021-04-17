@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--    ldpi (0.75x) -240x360 dp-->
+
+    <!-- default -->
+
     <!--    no optimized-->
     <dimen name="elevation">2dp</dimen>
 

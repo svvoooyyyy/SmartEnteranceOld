@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--    xxhdpi (3.0x) - 960x1440 dp-->
+
+    <!-- ldpi 960 width -->
+
     <!--    elements-->
     <dimen name="qr_code_image_size">900dp</dimen>
     <dimen name="start_screen_logo_image_size">396dp</dimen>

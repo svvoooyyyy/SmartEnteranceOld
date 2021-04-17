@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorSecondary"
                 android:orientation="vertical"
-                android:padding="@dimen/simple_margin">
+                android:padding="@dimen/simple_padding">
 
 
                 <EditText

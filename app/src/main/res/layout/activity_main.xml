@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/main_activity_round_button_text_teacher"
-            android:textSize="10pt" />
+            android:textSize="@dimen/simple_text_size" />
 
         <RadioButton
             android:id="@+id/main_activity_radio_button_student"
@@ -43,7 +43,7 @@
             android:layout_marginTop="@dimen/simple_margin"
             android:checked="true"
             android:text="@string/main_activity_round_button_text_student"
-            android:textSize="10pt" />
+            android:textSize="@dimen/simple_text_size" />
 
     </RadioGroup>
 
