@@ -7,111 +7,92 @@
     android:orientation="vertical"
     tools:context=".TeacherSettingsActivity">
 
-    <include layout="@layout/standart_toolbar" />
+    <include layout="@layout/standard_toolbar" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:gravity="center"
-            android:padding="@dimen/small_padding"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_element_size"
-            android:background="@color/colorSecondary"
-            android:layoutDirection="rtl"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/teacher_settings_delete_user_mode_button"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_button_7_dark"
-                android:text="@string/delete_button_text"
-                android:textColor="@color/colorBackground" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/teacher_settings_change_mode_text"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/simple_text_size" />
+                android:padding="@dimen/small_padding">
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/teacher_settings_delete_user_mode_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/rounded_button_7_dark"
+                    android:text="@string/delete_button_text"
+                    android:textColor="@color/colorBackground" />
 
-        <LinearLayout
-            android:gravity="center"
-            android:padding="@dimen/small_padding"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_element_size"
-            android:layoutDirection="rtl"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toStartOf="@+id/teacher_settings_delete_user_mode_button"
+                    android:gravity="center"
+                    android:text="@string/teacher_settings_change_mode_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/simple_text_size" />
 
-            <Button
-                android:id="@+id/teacher_settings_import_data_button"
-                android:layout_width="wrap_content"
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_button_7_dark"
-                android:text="@string/import_button_text"
-                android:textColor="@color/colorBackground" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:background="@color/colorSecondary"
                 android:gravity="center"
-                android:text="@string/teacher_settings_import_data_text"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/simple_text_size" />
+                android:padding="@dimen/small_padding">
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/teacher_settings_import_data_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/rounded_button_7_dark"
+                    android:text="@string/import_button_text"
+                    android:textColor="@color/colorBackground" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toStartOf="@+id/teacher_settings_import_data_button"
+                    android:gravity="center"
+                    android:text="@string/teacher_settings_import_data_text"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/simple_text_size" />
+
+            </RelativeLayout>
 
 
-
-        <LinearLayout
-            android:gravity="center"
-            android:padding="@dimen/small_padding"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_element_size"
-            android:background="@color/colorSecondary"
-            android:layoutDirection="rtl"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/teacher_settings_share_data_button"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_button_7_dark"
-                android:text="@string/share_button_text"
-                android:textColor="@color/colorBackground" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/teacher_settings_share_data_text"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/simple_text_size" />
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/settings_element_size"
+                    android:gravity="center"
+                    android:text="@string/version"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/simple_text_size" />
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_element_size"
-            android:layoutDirection="rtl"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/version"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/simple_text_size" />
-
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

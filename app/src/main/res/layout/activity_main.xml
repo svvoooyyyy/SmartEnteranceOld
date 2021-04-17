@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="@dimen/simple_activity_padding"
+    android:padding="@dimen/double_padding"
     tools:context=".MainActivity">
 
     <ImageView

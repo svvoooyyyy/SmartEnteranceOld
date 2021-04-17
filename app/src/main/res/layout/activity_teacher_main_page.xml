@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".TeacherMainPage">
 
-    <include layout="@layout/standart_toolbar"/>
+    <include layout="@layout/standard_toolbar"/>
 
     <LinearLayout
 
@@ -20,6 +20,7 @@
     </LinearLayout>
 
     <ScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -27,19 +28,14 @@
             android:padding="@dimen/simple_padding"
             android:id="@+id/activity_teacher_main_page_learners_out"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/small_element_size"
                 android:background="@drawable/student_card">
-
-
             </LinearLayout>
-
-
         </LinearLayout>
-
     </ScrollView>
 </LinearLayout>

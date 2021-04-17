@@ -6,29 +6,28 @@
     android:orientation="vertical"
     tools:context=".StudentSettingsActivity">
 
-    <include layout="@layout/standart_toolbar" />
+    <include layout="@layout/standard_toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:gravity="center"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_element_size"
-                android:background="@color/colorSecondary"
-                android:layoutDirection="rtl"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:padding="@dimen/simple_margin_half">
 
                 <Button
                     android:id="@+id/student_settings_delete_user_mode_button"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/settings_element_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
                     android:background="@drawable/rounded_button_7_dark"
                     android:text="@string/delete_button_text"
                     android:textColor="@color/colorBackground" />
@@ -36,128 +35,68 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/student_settings_delete_user_mode_button"
                     android:gravity="center"
                     android:text="@string/student_settings_change_mode_text"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/simple_text_size" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
-
-                android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_element_size"
-                android:layoutDirection="rtl"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/student_settings_save_user_surname_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_button_7_dark"
-                    android:text="@string/save_button_text"
-                    android:textColor="@color/colorBackground" />
-
-                <EditText
-                    android:id="@+id/student_settings_edit_text_surname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/student_settings_surname_edit_text"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/simple_text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_element_size"
+                android:layout_height="wrap_content"
                 android:background="@color/colorSecondary"
-                android:layoutDirection="rtl"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="@dimen/simple_margin">
 
-                <Button
-                    android:id="@+id/student_settings_save_user_name_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_button_7_dark"
-                    android:text="@string/save_button_text"
-                    android:textColor="@color/colorBackground" />
 
                 <EditText
                     android:id="@+id/student_settings_edit_text_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/student_settings_name_edit_text"
+                    android:layout_height="@dimen/settings_element_size"
+                    android:background="@color/colorBackground"
+                    android:hint="@string/student_settings_surname_edit_text"
+                    android:padding="@dimen/simple_margin"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/simple_text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_element_size"
-                android:layoutDirection="rtl"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/student_settings_save_user_last_name_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_button_7_dark"
-                    android:text="@string/save_button_text"
-                    android:textColor="@color/colorBackground" />
-
-                <EditText
-                    android:id="@+id/student_settings_edit_text_last_name"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/student_settings_last_name_edit_text"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/simple_text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_element_size"
-                android:background="@color/colorSecondary"
-                android:layoutDirection="rtl"
-                android:orientation="horizontal">
-
-                <Button
-
-                    android:id="@+id/student_settings_save_user_id_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_button_7_dark"
-                    android:text="@string/save_button_text"
-                    android:textColor="@color/colorBackground" />
 
                 <EditText
                     android:id="@+id/student_settings_edit_text_id"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/settings_element_size"
+                    android:layout_marginTop="@dimen/simple_margin_half"
+                    android:layout_marginBottom="@dimen/simple_margin_half"
+                    android:background="@color/colorBackground"
                     android:hint="@string/student_settings_id_edit_text"
-                    android:textColor="@color/colorPrimary"
+                    android:padding="@dimen/simple_margin"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/simple_text_size" />
+
+                <Button
+                    android:id="@+id/student_settings_save_user_info_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/settings_element_size"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_button_7_dark"
+                    android:text="@string/save_button_text"
+                    android:textColor="@color/colorBackground" />
+
 
             </LinearLayout>
 
+
             <LinearLayout
-                android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_element_size"
+                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/settings_element_size"
                     android:gravity="center"
                     android:text="@string/version"
                     android:textColor="@color/colorPrimary"

@@ -3,10 +3,21 @@
     <!--    xxxhdpi (4.0x) - 1280x1920 dp-->
     <!--    elements-->
     <dimen name="qr_code_image_size">1200dp</dimen>
+    <dimen name="start_screen_logo_image_size">528dp</dimen>
     <dimen name="start_screen_logo_image_size_horizontal">1046dp</dimen>
     <dimen name="settings_element_size">220dp</dimen>
+    <dimen name="small_element_size">368dp</dimen>
+    <dimen name="big_element_size">1600dp</dimen>
     <!--sizes-->
-    <dimen name="simple_margin">500dp</dimen>
+    <dimen name="small_padding">16dp</dimen>
     <dimen name="simple_padding">80dp</dimen>
+    <dimen name="double_padding">96dp</dimen>
+    <dimen name="small_margin">16dp</dimen>
+    <dimen name="simple_margin_half">25dp</dimen>
+    <dimen name="simple_margin">50dp</dimen>
+    <dimen name="simple_text_size">100sp</dimen>
+    <dimen name="title_text_size">204sp</dimen>
+    <dimen name="double_margin">208dp</dimen>
+    <dimen name="subtitle_text_size">80sp</dimen>
 
 </resources>

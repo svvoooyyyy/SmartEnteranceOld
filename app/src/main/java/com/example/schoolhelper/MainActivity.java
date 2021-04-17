@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -17,11 +18,13 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Вот так вот
+
     //Shared preferences
     public static final String PREF_USER_MODE = "user_mode";
-    public static final int ACTIVITY_BACK_CODE = 123;
+    // Вот так вот
+    private static final int ACTIVITY_BACK_CODE = 123;
     public static final int RESULT_BACK = 321;
+    public static final int RESULT_NULL = 0;
 
     // variables
     Button mainActivityButtonEnter;
@@ -39,9 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         // получение данных
-        SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
-        int userMode = -1;//preferences.getInt(PREF_USER_MODE, -1);
-        Log.e("dfghjkl","userMode="+userMode);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int userMode = preferences.getInt(PREF_USER_MODE, -1);
         switch (userMode) {
             case -1:
                 break;
@@ -65,10 +67,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent;
 
                 // сохранение данных
-                SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = preferences.edit();
-
-
 
                 if (mainActivityRadioButtonTeacher.isChecked()) {
                     editor.putInt(PREF_USER_MODE, 1);
@@ -90,14 +90,5 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_BACK && requestCode == ACTIVITY_BACK_CODE) {
             finish();
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {//кнопка назад в actionBar
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

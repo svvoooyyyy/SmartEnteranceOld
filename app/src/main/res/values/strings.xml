@@ -1,29 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">school helper</string>
+    <string name="app_name" translatable="false">entrance helper</string>
 
     <string name="main_activity_round_button_text_teacher">teacher</string>
     <string name="main_activity_round_button_text_student">student</string>
     <string name="main_activity_button_text_enter">continue</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="teacher_settings_export_button">export</string>
     <string name="teacher_settings_import_button">import</string>
     <string name="teacher_settings_change_mode_text">you are not teacher?</string>
     <string name="student_settings_change_mode_text">you are not learner?</string>
+    <!-- TODO: delete -->
     <string name="delete_button_text">delete</string>
     <string name="import_button_text">import</string>
     <string name="share_button_text">share</string>
 
-
+    <string name="no_code_text">code was not entered</string>
+    <string name="no_name_text">name was not entered</string>
     <string name="save_button_text">save</string>
-    <string name="student_settings_last_name_edit_text">last name</string>
     <string name="student_settings_id_edit_text">moskvenok id</string>
-    <string name="student_settings_name_edit_text">name</string>
-    <string name="student_settings_surname_edit_text">surname</string>
+    <string name="student_settings_surname_edit_text">full name</string>
     <string name="version" translatable="false">v 1.0</string>
     <string name="teacher_settings_share_data_text">share data</string>
     <string name="teacher_settings_import_data_text">import data base</string>
     <string name="main_activity_round_title_text_teacher">how do you want to use the app?</string>
+    <string name="student_main_page_button_text">Settings</string>
 
 
 </resources>

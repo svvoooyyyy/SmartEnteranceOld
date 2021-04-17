@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
@@ -29,12 +29,11 @@ import com.google.zxing.Result;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -46,6 +45,10 @@ import java.util.Locale;
 
 public class TeacherMainPage extends AppCompatActivity {
 
+
+    private static final int ACTIVITY_BACK_CODE = 20;
+    public static final int RESULT_CLEAR_DATA = 81;
+    public static final int RESULT_UPDATE = 82;
     // имя файла
     public static final String FILE_NAME = "saved_data.xls";
     private static final String TAG = "tag";
@@ -67,19 +70,35 @@ public class TeacherMainPage extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.standart_menu, menu);
+        getMenuInflater().inflate(R.menu.teacher_menu, menu);
         this.menu = menu;
         return super.onCreateOptionsMenu(menu);
     }
+
+
+    boolean isSaveProcess = false;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.activity_settings:
+            case R.id.activity_settings: {
                 Intent intent = new Intent(TeacherMainPage.this, TeacherSettingsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, ACTIVITY_BACK_CODE);
                 break;
+            }
+            case R.id.activity_share: {
+                if (!isSaveProcess) {
+                    isSaveProcess = true;
+                    shareContent();
+                    isSaveProcess = false;
+                }
+                break;
+            }
+            case R.id.activity_clear: {
+                // todo wtf
+                break;
+            }
         }
 
         if (item.getItemId() == android.R.id.home) {
@@ -95,8 +114,6 @@ public class TeacherMainPage extends AppCompatActivity {
         setContentView(R.layout.activity_teacher_main_page);
         Toolbar toolbar = findViewById(R.id.base_toolbar);
         setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // тосты из сторонних потоков
         toastHandler = new Handler(getMainLooper()) {
@@ -194,6 +211,20 @@ public class TeacherMainPage extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ACTIVITY_BACK_CODE) {
+            if (resultCode == RESULT_CLEAR_DATA) {
+                setResult(MainActivity.RESULT_NULL, null);
+                finish();
+            } else if (resultCode == RESULT_UPDATE) {
+                //updateFields(); todo ване
+            }
+        }
+
+    }
+
     // -------------------------- вспомогательные методы --------------------------
 
 
@@ -254,6 +285,31 @@ public class TeacherMainPage extends AppCompatActivity {
         });
     }
 
+    // поделиться
+    private void shareContent() {
+
+        // сохраняем текущие данные в файл
+        saveEXELDataInXlsFile();
+
+        // отправляем файл
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        sharingIntent.setType("*/*");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Сводка за");//TODO
+        //sharingIntent.putExtra(Intent.EXTRA_TEXT, "");
+
+        // находим свой каталог для файла
+        File sdPath = new File(this.getFilesDir().getAbsolutePath());
+        // формируем объект File, который находится в sdPath
+        File sdFile = new File(sdPath, FILE_NAME);
+
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(
+                this, "com.example.schoolhelper.export_data_provider", sdFile
+        ));
+        startActivity(Intent.createChooser(sharingIntent, "Отправить через: "));
+
+    }
+
 
     // поток сохранения данных
     private class SaveThread extends Thread {
@@ -261,98 +317,98 @@ public class TeacherMainPage extends AppCompatActivity {
         public void run() {
             super.run();
 
-            // генерируем новый файл EXEL
-            Workbook openedBook = new HSSFWorkbook();
-            Sheet sheet = openedBook.createSheet("Entrance Helper");
+            saveEXELDataInXlsFile();
 
-
-            {// шапка таблицы
-                Row row = sheet.createRow(0);
-                Cell[] cells = new Cell[6];
-                for (int i = 0; i < cells.length; i++) cells[i] = row.createCell(i);
-                cells[0].setCellValue("Дата");
-                cells[1].setCellValue("Время");
-                cells[2].setCellValue("ФИО");
-                cells[3].setCellValue("Группа");
-                cells[4].setCellValue("Событие");
-                cells[5].setCellValue("Корпус посещения1");
-            }
-
-            // тело таблицы
-            int excelRowPoz = 1;
-            Iterator<EnteredUnit> iterator = studentsList.iterator();
-            while (iterator.hasNext()) {
-                // событие прохода
-                EnteredUnit current = iterator.next();
-
-                Date point = new Date(current.unixTimePoint);
-
-
-                // строка
-                Row row = sheet.createRow(excelRowPoz);
-                Cell[] cells = new Cell[6];
-                for (int i = 0; i < cells.length; i++) cells[i] = row.createCell(i);
-                cells[0].setCellValue(dateFormat.format(point));
-                cells[1].setCellValue(timeFormat.format(point));
-                if (current.student == null) {
-                    cells[2].setCellValue("-");
-                    cells[3].setCellValue("-");
-                } else {
-                    cells[2].setCellValue(current.student.name);
-                    cells[3].setCellValue(current.student.group);
-                    //DataFormat format = openedBook.createDataFormat();
-                    //        CellStyle dateStyle = openedBook.createCellStyle();
-                    //        dateStyle.setDataFormat(format.getFormat("(ss.MM.hh) dd.mm.yyyy"));
-                    //        birthdate.setCellStyle(dateStyle);
-                }
-                cells[4].setCellValue("вход");
-                cells[5].setCellValue("ГБОУ Школа № 1852");// TODO
-
-
-                excelRowPoz++;
-            }
-
-            // Записываем всё в файл
-            saveEXELDataInXlsFile(openedBook);
-            try {
-                if (openedBook != null)
-                    openedBook.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-        private void saveEXELDataInXlsFile(Workbook data) {
-
-
-            FileOutputStream fileOutputStream = null;
-            try {
-                fileOutputStream = openFileOutput(FILE_NAME, MODE_PRIVATE);
-                data.write(fileOutputStream);
-
-                Message message = new Message();
-                message.what = 112;
-                message.obj = "Данные сохранены";
-                toastHandler.sendMessage(message);
-            } catch (IOException e) {
-
-                Message message = new Message();
-                message.what = 112;
-                message.obj = "Ошибка сохранения";
-                toastHandler.sendMessage(message);
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (fileOutputStream != null)
-                        fileOutputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
+    private void saveEXELDataInXlsFile() {
+        // генерируем новый файл EXEL
+        Workbook openedBook = new HSSFWorkbook();
+        Sheet sheet = openedBook.createSheet("Entrance Helper");
+
+
+        {// шапка таблицы
+            Row row = sheet.createRow(0);
+            Cell[] cells = new Cell[6];
+            for (int i = 0; i < cells.length; i++) cells[i] = row.createCell(i);
+            cells[0].setCellValue("Дата");
+            cells[1].setCellValue("Время");
+            cells[2].setCellValue("ФИО");
+            cells[3].setCellValue("Группа");
+            cells[4].setCellValue("Событие");
+            cells[5].setCellValue("Корпус посещения1");
+        }
+
+        // тело таблицы
+        int excelRowPoz = 1;
+        Iterator<EnteredUnit> iterator = studentsList.iterator();
+        while (iterator.hasNext()) {
+            // событие прохода
+            EnteredUnit current = iterator.next();
+
+            Date point = new Date(current.unixTimePoint);
+
+
+            // строка
+            Row row = sheet.createRow(excelRowPoz);
+            Cell[] cells = new Cell[6];
+            for (int i = 0; i < cells.length; i++) cells[i] = row.createCell(i);
+            cells[0].setCellValue(dateFormat.format(point));
+            cells[1].setCellValue(timeFormat.format(point));
+            if (current.student == null) {
+                cells[2].setCellValue("-");
+                cells[3].setCellValue("-");
+            } else {
+                cells[2].setCellValue(current.student.name);
+                cells[3].setCellValue(current.student.group);
+                //DataFormat format = openedBook.createDataFormat();
+                //        CellStyle dateStyle = openedBook.createCellStyle();
+                //        dateStyle.setDataFormat(format.getFormat("(ss.MM.hh) dd.mm.yyyy"));
+                //        birthdate.setCellStyle(dateStyle);
+            }
+            cells[4].setCellValue("вход");
+            cells[5].setCellValue("ГБОУ Школа № 1852");// TODO
+
+
+            excelRowPoz++;
+        }
+
+        // Записываем всё в файл
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileOutputStream = openFileOutput(FILE_NAME, MODE_PRIVATE);
+            openedBook.write(fileOutputStream);
+
+            Message message = new Message();
+            message.what = 112;
+            message.obj = "Данные сохранены";
+            toastHandler.sendMessage(message);
+        } catch (IOException e) {
+
+            Message message = new Message();
+            message.what = 112;
+            message.obj = "Ошибка сохранения";
+            toastHandler.sendMessage(message);
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fileOutputStream != null)
+                    fileOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            if (openedBook != null)
+                openedBook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
 
 class Student {

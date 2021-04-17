@@ -14,16 +14,17 @@
     <string name="student_settings_change_mode_text">вы не ученик?</string>
     <string name="delete_button_text">удалить</string>
     <string name="save_button_text">сохранить</string>
-    <string name="student_settings_last_name_edit_text">отчество</string>
     <string name="student_settings_id_edit_text">москвёнок</string>
-    <string name="student_settings_name_edit_text">имя</string>
-    <string name="student_settings_surname_edit_text">фамилия</string>
+    <string name="student_settings_surname_edit_text">ФИО</string>
 
     <string name="teacher_settings_share_data_text">поделиться данными</string>
 
 
     <string name="teacher_settings_export_button">экспорт</string>
     <string name="teacher_settings_change_mode_text">вы не учитель?</string>
+    <string name="no_name_text">имя не введено</string>
+    <string name="no_code_text">код не введён</string>
+    <string name="student_main_page_button_text">настройки</string>
 
 
 </resources>
