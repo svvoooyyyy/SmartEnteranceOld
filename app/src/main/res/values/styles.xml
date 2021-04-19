@@ -12,19 +12,11 @@
         <item name="android:windowBackground">@color/colorBackground</item>
     </style>
 
-    <style name="MyToolbarStyle"  parent="Widget.AppCompat.Toolbar">
+    <style name="MyToolbarStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/colorBackground</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
         <item name="android:textColorSecondary">@color/colorTextPrimary</item>
     </style>
-
-    <style name="Toolbar">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?attr/actionBarSize</item>
-        <!-- <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item> -->
-        <item name="android:background">@color/colorPrimary</item>
-    </style>
-
 
 
 </resources>

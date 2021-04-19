@@ -18,8 +18,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TeacherSettingsActivity"></activity>
-        <activity android:name=".StudentSettingsActivity" />
+        <activity
+            android:name=".TeacherSettingsActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".StudentSettingsActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".StudentMainPage" />
         <activity android:name=".TeacherMainPage" />
         <activity android:name=".MainActivity">

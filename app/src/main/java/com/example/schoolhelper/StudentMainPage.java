@@ -84,7 +84,7 @@ public class StudentMainPage extends AppCompatActivity {
             MultiFormatWriter writer = new MultiFormatWriter();
             try {
                 BitMatrix matrix = writer.encode(String.format(Locale.getDefault(), "%010d", code), BarcodeFormat.QR_CODE,
-                        400, 400);// todo
+                        getResources().getDimensionPixelSize(R.dimen.qr_code_image_size), getResources().getDimensionPixelSize(R.dimen.qr_code_image_size));
                 BarcodeEncoder encoder = new BarcodeEncoder();
                 Bitmap bitmap = encoder.createBitmap(matrix);
                 qrCode.setImageBitmap(bitmap);
@@ -97,7 +97,7 @@ public class StudentMainPage extends AppCompatActivity {
             }
         } else {
             qrCode.setImageResource(R.drawable.no_code);
-            codeText.setText("Кода нет");// todo перевод
+            codeText.setText(getResources().getText(R.string.no_code_text));
         }
     }
 

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".TeacherMainPage">
 
-    <include layout="@layout/standard_toolbar"/>
+    <include layout="@layout/standard_toolbar" />
 
     <LinearLayout
 
@@ -25,17 +25,43 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:padding="@dimen/simple_padding"
+
             android:id="@+id/activity_teacher_main_page_learners_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/simple_padding"
+            android:paddingRight="@dimen/simple_padding">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/small_element_size"
-                android:background="@drawable/student_card">
-            </LinearLayout>
+                android:layout_marginTop="@dimen/simple_margin"
+                android:background="@drawable/student_card"
+                android:padding="@dimen/simple_padding">
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Вася Васечкин"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/simple_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text"
+                    android:text="123456" />
+
+                <Button
+                    android:layout_width="@dimen/delete_button_size"
+                    android:layout_height="@dimen/delete_button_size"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/rounded_button_1000"
+                    android:text="X" />
+
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
