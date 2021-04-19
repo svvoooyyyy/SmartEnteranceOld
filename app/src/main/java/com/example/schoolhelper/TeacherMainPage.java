@@ -6,11 +6,13 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -192,6 +195,7 @@ public class TeacherMainPage extends AppCompatActivity {
         // остальное
 
         setResult(MainActivity.RESULT_BACK, null);
+
     }
 
     @Override
@@ -241,26 +245,26 @@ public class TeacherMainPage extends AppCompatActivity {
                 currentPos++;
             }
         }
-        // создание view
-        TextView textView = new TextView(TeacherMainPage.this);
-        textView.setPadding(
-                getResources().getDimensionPixelOffset(R.dimen.simple_margin),
-                getResources().getDimensionPixelOffset(R.dimen.double_margin),
-                getResources().getDimensionPixelOffset(R.dimen.simple_margin),
-                getResources().getDimensionPixelOffset(R.dimen.double_margin)
-        );
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        learnersOut.addView(textView, layoutParams);
+
+        View view = getLayoutInflater().inflate(R.layout.out_list_element, learnersOut);
+        TextView nameTextView = ((TextView) view.findViewById(R.id.out_list_element_text_name));
+        nameTextView.setText("name");
+        TextView idTextView = ((TextView) view.findViewById(R.id.out_list_element_text_id));
+        idTextView.setText("id");
+
+        view.findViewById(R.id.out_list_element_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(TeacherMainPage.this, "fsgsdhdft", Toast.LENGTH_LONG).show();
+            }
+        });
 
 
         // создание записи
         final EnteredUnit enteredUnit;
         if (pos == -1) {
-            textView.setText(String.format("%010d", id));
-            enteredUnit = new EnteredUnit(System.currentTimeMillis(), null, id, textView);
+            nameTextView.setText(String.format("%010d", id));
+            enteredUnit = new EnteredUnit(System.currentTimeMillis(), null, id, nameTextView);
             Toast.makeText(
                     TeacherMainPage.this,
                     "ученик не найден в базе",
@@ -268,14 +272,16 @@ public class TeacherMainPage extends AppCompatActivity {
             ).show();
 
         } else {
-            enteredUnit = new EnteredUnit(System.currentTimeMillis(), authorisedStudentsData.get(pos), id, textView);
-            textView.setText(authorisedStudentsData.get(pos).name);
+            enteredUnit = new EnteredUnit(System.currentTimeMillis(), authorisedStudentsData.get(pos), id, nameTextView);
+            nameTextView.setText(authorisedStudentsData.get(pos).name);
+
+
         }
         studentsList.add(enteredUnit);
 
 
         // нажатие на текст
-        textView.setOnClickListener(new View.OnClickListener() {
+        nameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // удаляем элемент отовсюду
@@ -284,7 +290,6 @@ public class TeacherMainPage extends AppCompatActivity {
             }
         });
     }
-
 
 
     // поделиться
