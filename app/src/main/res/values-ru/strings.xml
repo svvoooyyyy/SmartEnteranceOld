@@ -25,6 +25,11 @@
     <string name="no_name_text">имя не введено</string>
     <string name="no_code_text">код не введён</string>
     <string name="student_main_page_button_text">настройки</string>
+    <string name="teacher_menu_clear_button_text">Очистить</string>
+    <string name="teacher_menu_settings_button_text">Настройки</string>
+    <string name="teacher_menu_share_button_text">Поделиться</string>
+    <string name="student_menu_button_settings_text">Настройки</string>
+    <string name="settings_delete_dialog_text">Вся информация будет удалена. Вы точно хотите продолжить?</string>
 
 
 </resources>

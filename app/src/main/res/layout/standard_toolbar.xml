@@ -18,6 +18,3 @@
         />
 
 </com.google.android.material.appbar.AppBarLayout>
-
-<!-- app:navigationIcon="@drawable/rounded_button_7_dark"
-        app:titleTextColor="@color/colorBackground" -->

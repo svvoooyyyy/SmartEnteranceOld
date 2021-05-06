@@ -77,7 +77,7 @@ public class StudentMainPage extends AppCompatActivity {
 
         // код
         long code = preferences.getLong(StudentSettingsActivity.PREF_ID, -1);
-        if (code >= 0 && code <= 9999999999L) {
+        if (code >= 0 && code <= 9999999999L) { // todo размеры кода
             codeText.setText(String.format(Locale.getDefault(), "%010d", code));
 
             // creating qr code

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/out_relative_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/small_element_size"
     android:layout_marginTop="@dimen/simple_margin"
@@ -10,7 +11,7 @@
         android:id="@+id/out_list_element_text_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Вася Васечкин"
+        android:text="@string/out_list_element_text_name"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/simple_text_size" />
 
@@ -19,17 +20,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/out_list_element_text_name"
-        android:text="123456"
+        android:text="@string/out_list_element_text_id"
         android:textSize="@dimen/small_text_size" />
 
     <TextView
-        android:gravity="center"
-        android:textColor="@color/colorBackground"
-        android:id="@+id/out_list_element_button"
+        android:id="@+id/out_list_element_button_delete"
         android:layout_width="@dimen/delete_button_size"
         android:layout_height="@dimen/delete_button_size"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:background="@drawable/rounded_button_1000"
-        android:text="X" />
+        android:gravity="center"
+        android:text="@string/delete_cross"
+        android:textColor="@color/colorBackground" />
 
 </RelativeLayout>

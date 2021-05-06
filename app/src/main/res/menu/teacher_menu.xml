@@ -7,19 +7,19 @@
         android:id="@+id/activity_share"
         android:icon="@drawable/ic_share"
         android:orderInCategory="1"
-        android:title="Share"
+        android:title="@string/teacher_menu_share_button_text"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/activity_settings"
         android:icon="@drawable/ic_settings"
         android:orderInCategory="2"
-        android:title="Settings"
+        android:title="@string/teacher_menu_settings_button_text"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/activity_clear"
         android:orderInCategory="3"
-        android:title="Clear"
+        android:title="@string/teacher_menu_clear_button_text"
         app:showAsAction="never" />
 
 

@@ -1,13 +1,16 @@
 package com.example.schoolhelper;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.documentfile.provider.DocumentFile;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -28,6 +32,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -105,6 +110,7 @@ public class TeacherSettingsActivity extends AppCompatActivity {
                     Intent intent;
                     intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                     intent.setType("*/*");
                     startActivityForResult(Intent.createChooser(intent, "Select file to upload "), PICKFILE_RESULT_CODE);
                 }
@@ -120,6 +126,11 @@ public class TeacherSettingsActivity extends AppCompatActivity {
 
     }
 
+    private String getFileName(Uri uri) {
+        DocumentFile documentFile = DocumentFile.fromSingleUri(this, uri);
+        String fileName = documentFile.getName();
+        return fileName;
+    }
 
     private static final int PICKFILE_RESULT_CODE = 1;
 
@@ -138,17 +149,12 @@ public class TeacherSettingsActivity extends AppCompatActivity {
                 FileInputStream fileInputStream = null;
                 try {
 
-                    // путь к файлу
                     Uri uri = data.getData();
-                    List<String> list = uri.getPathSegments();
-                    String filePath = Environment.getExternalStorageDirectory().toString() +
-                            '/' +
-                            list.get(list.size() - 1).replace("primary:", "");
-
-                    if (filePath.endsWith(".xls")) {
+                    if (getFileName(uri).trim().endsWith(".xls")) {
 
                         // читаем xls из файла
-                        fileInputStream = new FileInputStream(filePath);
+                        fileInputStream = (FileInputStream) getContentResolver().openInputStream(uri);
+//                                new FileInputStream(filePath);
                         HSSFWorkbook book = new HSSFWorkbook(fileInputStream);
 
                         int number = book.getNumberOfSheets();

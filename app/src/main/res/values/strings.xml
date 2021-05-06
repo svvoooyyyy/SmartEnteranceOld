@@ -10,7 +10,7 @@
     <string name="teacher_settings_import_button">import</string>
     <string name="teacher_settings_change_mode_text">you are not teacher?</string>
     <string name="student_settings_change_mode_text">you are not learner?</string>
-    <!-- TODO: delete -->
+    <string name="delete_cross" translatable="false">X</string>
     <string name="delete_button_text">delete</string>
     <string name="import_button_text">import</string>
     <string name="share_button_text">share</string>
@@ -25,6 +25,16 @@
     <string name="teacher_settings_import_data_text">import data base</string>
     <string name="main_activity_round_title_text_teacher">how do you want to use the app?</string>
     <string name="student_main_page_button_text">Settings</string>
+    <string name="student_menu_button_settings_text">Settings</string>
+    <string name="out_list_element_text_name" translatable="false"><![CDATA[<name example>]]></string>
+    <string name="teacher_menu_clear_button_text">Clear</string>
+    <string name="teacher_menu_settings_button_text">Settings</string>
+    <string name="teacher_menu_share_button_text">Share</string>
+    <string name="out_list_element_text_id" translatable="false"><![CDATA[<code example>]]></string>
+
+<!--    dialog-->
+    <string name="settings_delete_dialog_text">All information will be delete. Do you want to continue?</string>
+    <string name="settings_delete_dialog_title">delete</string>
 
 
 </resources>

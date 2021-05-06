@@ -94,4 +94,8 @@ public class StudentSettingsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    interface MyBackDialogInterface {
+        void onBackData(String tag);
+    }
 }

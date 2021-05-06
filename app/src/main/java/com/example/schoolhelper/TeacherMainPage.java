@@ -141,7 +141,7 @@ public class TeacherMainPage extends AppCompatActivity {
         learnersOut = findViewById(R.id.activity_teacher_main_page_learners_out);
 
 
-        // Реализация раюоты с камерой
+        // Реализация работы с камерой
 
         if (ContextCompat.checkSelfPermission(TeacherMainPage.this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED) {
@@ -192,15 +192,25 @@ public class TeacherMainPage extends AppCompatActivity {
             });
         }
 
+        // добавляем всех уже просканированных учеников
+        //for (EnteredUnit student : studentsList) {
+//        learnersOut.addView(student.relativeLayout);
+////            student.relativeLayout.findViewById()
+//    }//todo
+
         // остальное
 
         setResult(MainActivity.RESULT_BACK, null);
 
     }
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
+
+        Toast.makeText(TeacherMainPage.this, "fsgsdhdft", Toast.LENGTH_LONG).show();
         mCodeScanner.startPreview();
     }
 
@@ -247,24 +257,21 @@ public class TeacherMainPage extends AppCompatActivity {
         }
 
         View view = getLayoutInflater().inflate(R.layout.out_list_element, learnersOut);
+        RelativeLayout relativeLayout = view.findViewById(R.id.out_relative_layout);
         TextView nameTextView = ((TextView) view.findViewById(R.id.out_list_element_text_name));
         nameTextView.setText("name");
         TextView idTextView = ((TextView) view.findViewById(R.id.out_list_element_text_id));
         idTextView.setText("id");
 
-        view.findViewById(R.id.out_list_element_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(TeacherMainPage.this, "fsgsdhdft", Toast.LENGTH_LONG).show();
-            }
-        });
+
+
 
 
         // создание записи
         final EnteredUnit enteredUnit;
         if (pos == -1) {
             nameTextView.setText(String.format("%010d", id));
-            enteredUnit = new EnteredUnit(System.currentTimeMillis(), null, id, nameTextView);
+            enteredUnit = new EnteredUnit(System.currentTimeMillis(), null, id, relativeLayout);
             Toast.makeText(
                     TeacherMainPage.this,
                     "ученик не найден в базе",
@@ -272,7 +279,7 @@ public class TeacherMainPage extends AppCompatActivity {
             ).show();
 
         } else {
-            enteredUnit = new EnteredUnit(System.currentTimeMillis(), authorisedStudentsData.get(pos), id, nameTextView);
+            enteredUnit = new EnteredUnit(System.currentTimeMillis(), authorisedStudentsData.get(pos), id, relativeLayout);
             nameTextView.setText(authorisedStudentsData.get(pos).name);
 
 
@@ -281,11 +288,11 @@ public class TeacherMainPage extends AppCompatActivity {
 
 
         // нажатие на текст
-        nameTextView.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.out_list_element_button_delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // удаляем элемент отовсюду
-                learnersOut.removeView(enteredUnit.textView);
+                learnersOut.removeView(enteredUnit.relativeLayout); // todo
                 studentsList.remove(enteredUnit);
             }
         });
@@ -440,13 +447,13 @@ class EnteredUnit {
     long unixTimePoint;
     Student student;
     long enteredId;
-    TextView textView;
+    RelativeLayout relativeLayout;
 
-    public EnteredUnit(long unixTimePoint, Student student, long enteredId, TextView textView) {
+    public EnteredUnit(long unixTimePoint, Student student, long enteredId, RelativeLayout relativeLayout) {
         this.unixTimePoint = unixTimePoint;
         this.student = student;
         this.enteredId = enteredId;
-        this.textView = textView;
+        this.relativeLayout = relativeLayout;
     }
 
 }
