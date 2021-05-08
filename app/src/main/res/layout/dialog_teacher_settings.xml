@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/_dialog_head_background_dark">
+
+        <ImageView
+            android:id="@+id/dialog_teacher_settings_bttn_close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="@dimen/simple_margin"
+            android:layout_marginTop="@dimen/simple_margin"
+            android:layout_marginRight="@dimen/double_margin"
+            android:layout_marginBottom="@dimen/simple_margin"
+            android:adjustViewBounds="true"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/double_margin"
+            android:gravity="center"
+            android:text="Результат загрузки todo"
+            android:textColor="@color/colorBackground"
+            android:textSize="@dimen/simple_text_size" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/_dialog_bottom_background_white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/dialog_teacher_settings_log_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/simple_margin"
+                android:layout_marginTop="@dimen/simple_margin"
+                android:layout_marginRight="@dimen/simple_margin"
+                android:layout_marginBottom="@dimen/simple_margin"
+                android:background="@color/cardview_dark_background"
+                android:padding="@dimen/simple_margin"
+                android:text="проапровапо"
+                android:textColor="@color/colorBackground"
+                android:textSize="@dimen/small_text_size" />
+
+            <TextView
+                android:id="@+id/dialog_teacher_settings_button_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/simple_margin"
+                android:background="@color/colorPrimary"
+                android:padding="@dimen/simple_margin"
+                android:text="Сохранить"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/simple_text_size" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

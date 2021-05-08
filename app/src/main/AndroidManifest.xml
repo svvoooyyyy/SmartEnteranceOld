@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".TeacherSettingsActivity"
+            android:name=".TeacherSettings.TeacherSettingsActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".StudentSettingsActivity"

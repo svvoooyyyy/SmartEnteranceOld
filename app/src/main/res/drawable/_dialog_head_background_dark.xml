@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:topLeftRadius="@dimen/cardview_default_radius" android:topRightRadius="@dimen/cardview_default_radius" />
+            <solid android:color="@color/cardview_dark_background" />
+        </shape>
+    </item>
+</selector>

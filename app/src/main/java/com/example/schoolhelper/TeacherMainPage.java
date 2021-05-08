@@ -3,21 +3,19 @@ package com.example.schoolhelper;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -27,11 +25,14 @@ import androidx.core.content.FileProvider;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.example.schoolhelper.TeacherSettings.TeacherSettingsActivity;
+import com.example.schoolhelper.data_base.Contract;
+import com.example.schoolhelper.data_base.DataBaseOpenHelper;
 import com.google.zxing.Result;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -40,7 +41,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -59,7 +59,7 @@ public class TeacherMainPage extends AppCompatActivity {
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
 
 
-    private ArrayList<Student> authorisedStudentsData;
+    //private ArrayList<Student> authorisedStudentsData;
     private LinkedList<EnteredUnit> studentsList;
 
 
@@ -99,7 +99,16 @@ public class TeacherMainPage extends AppCompatActivity {
                 break;
             }
             case R.id.activity_clear: {
-                // todo wtf
+                // удаляем записи о вошедших учениках
+
+                studentsList.clear();
+
+                DataBaseOpenHelper db = new DataBaseOpenHelper(this);
+                db.clearEnteredStudentsList();
+                db.close();
+
+                learnersOut.removeAllViews();
+
                 break;
             }
         }
@@ -128,12 +137,6 @@ public class TeacherMainPage extends AppCompatActivity {
             }
         };
 
-        // получаем данные
-        authorisedStudentsData = new ArrayList<>(5);
-        authorisedStudentsData.add(new Student(0000000000L, "Вася1 Пупкин Алексеевич", "7a"));
-        authorisedStudentsData.add(new Student(0000000001L, "Вася2 Пупкин Алексеевич", "7a"));
-        authorisedStudentsData.add(new Student(0000000002L, "Вася3 Пупкин Алексеевич", "7a"));
-        authorisedStudentsData.add(new Student(123456789L, "Вася4 Пупкин Алексеевич", "7a"));
         studentsList = new LinkedList<>();
 
 
@@ -192,35 +195,85 @@ public class TeacherMainPage extends AppCompatActivity {
             });
         }
 
-        // добавляем всех уже просканированных учеников
-        //for (EnteredUnit student : studentsList) {
-//        learnersOut.addView(student.relativeLayout);
-////            student.relativeLayout.findViewById()
-//    }//todo
+
+        // пробегаемся по введенным ученикам
+        DataBaseOpenHelper db = new DataBaseOpenHelper(this);
+        Cursor enteredStudents = db.getEnteredStudents();
+        studentsList.clear();
+        while (enteredStudents.moveToNext()) {
+            // контейнер элемента
+            RelativeLayout container = new RelativeLayout(this);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            learnersOut.addView(container, 0, layoutParams);
+
+            View view = getLayoutInflater().inflate(R.layout.out_list_element, container);
+            RelativeLayout relativeLayout = view.findViewById(R.id.out_relative_layout);
+            TextView nameTextView = view.findViewById(R.id.out_list_element_text_name);
+            nameTextView.setText("name");// todo в текстовые файлы
+            TextView idTextView = view.findViewById(R.id.out_list_element_text_id);
+            idTextView.setText("id");// todo в текстовые файлы
+
+
+            // находим сведения об ученике
+            long enteredAttitudeId = enteredStudents.getLong(enteredStudents.getColumnIndex(
+                    Contract.TableEnteredLearners.KEY_AUTHORIZED_PROFILE_ID
+            ));
+            long enteredMoskvenokId = enteredStudents.getLong(enteredStudents.getColumnIndex(
+                    Contract.TableEnteredLearners.COLUMN_ENTERED_MOSKVENOK_ID
+            ));
+            Cursor student = db.getAuthorizedStudentById(enteredAttitudeId);
+
+
+            // заполняем данными
+            final EnteredUnit enteredUnit;
+            if (student.getCount() == 0) {
+                nameTextView.setText("Ученик не найден в базе");// todo в текстовые файлы
+                nameTextView.setTextColor(getResources().getColor(R.color.colorError));
+                idTextView.setText(String.format(Locale.getDefault(), "%010d", enteredMoskvenokId));
+                enteredUnit = new EnteredUnit(
+                        System.currentTimeMillis(),
+                        enteredAttitudeId,
+                        enteredMoskvenokId,
+                        "-", "-",
+                        container
+                );
+            } else {
+                student.moveToFirst();
+                enteredUnit = new EnteredUnit(System.currentTimeMillis(),
+                        enteredAttitudeId,
+                        enteredMoskvenokId,
+                        student.getString(student.getColumnIndex(Contract.TableAuthorizedLearners.COLUMN_NAME)),
+                        student.getString(student.getColumnIndex(Contract.TableAuthorizedLearners.COLUMN_FORM)),
+                        container
+                );
+                String name = student.getString(student.getColumnIndex(Contract.TableAuthorizedLearners.COLUMN_NAME));
+                nameTextView.setText(
+                        (name.length() > 15) ? (name.substring(0, 20) + "...") : (name)
+                );
+                idTextView.setText(String.format(Locale.getDefault(), "%010d", enteredMoskvenokId));
+            }
+            studentsList.add(enteredUnit);
+        }
+        enteredStudents.close();
 
         // остальное
-
         setResult(MainActivity.RESULT_BACK, null);
 
     }
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
-
-        Toast.makeText(TeacherMainPage.this, "fsgsdhdft", Toast.LENGTH_LONG).show();
         mCodeScanner.startPreview();
     }
 
     @Override
     protected void onPause() {
         mCodeScanner.releaseResources();
-
-        SaveThread thread = new SaveThread();
-        thread.start();
-
         super.onPause();
     }
 
@@ -245,54 +298,77 @@ public class TeacherMainPage extends AppCompatActivity {
     // ввод студента
     private void enterStudent(long id) {
 
-        int pos = -1;
-        {
-            int currentPos = 0;
-            Iterator<Student> iterator = authorisedStudentsData.iterator();
-            while (iterator.hasNext() && pos == -1) {
-                Student temp = iterator.next();
-                if (temp.id == id) pos = currentPos;
-                currentPos++;
-            }
-        }
+        // контейнер элемента
+        RelativeLayout container = new RelativeLayout(this);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        learnersOut.addView(container, 0, layoutParams);
 
-        View view = getLayoutInflater().inflate(R.layout.out_list_element, learnersOut);
-        RelativeLayout relativeLayout = view.findViewById(R.id.out_relative_layout);
-        TextView nameTextView = ((TextView) view.findViewById(R.id.out_list_element_text_name));
-        nameTextView.setText("name");
-        TextView idTextView = ((TextView) view.findViewById(R.id.out_list_element_text_id));
-        idTextView.setText("id");
+        View view = getLayoutInflater().inflate(R.layout.out_list_element, container);
+        TextView nameTextView = view.findViewById(R.id.out_list_element_text_name);
+        nameTextView.setText("name");// todo в текстовые файлы
+        TextView idTextView = view.findViewById(R.id.out_list_element_text_id);
+        idTextView.setText("id");// todo в текстовые файлы
 
 
-
-
+        DataBaseOpenHelper db = new DataBaseOpenHelper(this);
+        Cursor students = db.getAuthorizedStudentByMoskvenokId(id);
 
         // создание записи
         final EnteredUnit enteredUnit;
-        if (pos == -1) {
-            nameTextView.setText(String.format("%010d", id));
-            enteredUnit = new EnteredUnit(System.currentTimeMillis(), null, id, relativeLayout);
-            Toast.makeText(
-                    TeacherMainPage.this,
-                    "ученик не найден в базе",
-                    Toast.LENGTH_SHORT
-            ).show();
-
+        if (students.getCount() == 0) {
+            nameTextView.setText("Ученик не найден в базе");// todo в текстовые файлы
+            nameTextView.setTextColor(getResources().getColor(R.color.colorError));
+            idTextView.setText(String.format(Locale.getDefault(), "%010d", id));
+            // создаем запись о том что ввели ученика
+            long enteredAttitudeId = db.createEnteredStudent(-1, id, new Date());
+            // сохраняем ссылку на запись в лист
+            enteredUnit = new EnteredUnit(
+                    System.currentTimeMillis(),
+                    enteredAttitudeId,
+                    id,
+                    "-", "-",
+                    container
+            );
         } else {
-            enteredUnit = new EnteredUnit(System.currentTimeMillis(), authorisedStudentsData.get(pos), id, relativeLayout);
-            nameTextView.setText(authorisedStudentsData.get(pos).name);
-
-
+            students.moveToFirst();
+            // создаем запись о том что ввели ученика и сохраняем в нее id записи ученика
+            long enteredAttitudeId = db.createEnteredStudent(
+                    students.getLong(students.getColumnIndex(Contract.TableAuthorizedLearners.KEY_STUDENT_PROFILE_ID)),
+                    id, new Date());
+            // сохраняем ссылку на запись в лист
+            enteredUnit = new EnteredUnit(
+                    System.currentTimeMillis(),
+                    enteredAttitudeId,
+                    id,
+                    students.getString(students.getColumnIndex(Contract.TableAuthorizedLearners.COLUMN_NAME)),
+                    students.getString(students.getColumnIndex(Contract.TableAuthorizedLearners.COLUMN_FORM)),
+                    container
+            );
+            String name = students.getString(students.getColumnIndex(Contract.TableAuthorizedLearners.COLUMN_NAME));
+            nameTextView.setText(
+                    (name.length() > 15) ? (name.substring(0, 20) + "...") : (name)
+            );
+            idTextView.setText(String.format(Locale.getDefault(), "%010d", id));
         }
         studentsList.add(enteredUnit);
-
+        students.close();
+        db.close();
 
         // нажатие на текст
         view.findViewById(R.id.out_list_element_button_delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // удаляем элемент отовсюду
-                learnersOut.removeView(enteredUnit.relativeLayout); // todo
+                // удаляем запись о том что ученик вошел
+                // из разметки
+                learnersOut.removeView(enteredUnit.relativeLayout);
+                // из бд
+                DataBaseOpenHelper db = new DataBaseOpenHelper(TeacherMainPage.this);
+                db.deleteEnteredStudentByRecordId(enteredUnit.enteredAttitudeId);
+                db.close();
+                // из листа
                 studentsList.remove(enteredUnit);
             }
         });
@@ -309,8 +385,8 @@ public class TeacherMainPage extends AppCompatActivity {
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         sharingIntent.setType("*/*");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Сводка за");//TODO
-        //sharingIntent.putExtra(Intent.EXTRA_TEXT, "");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Сводка за " + dateFormat.format(new Date()));
+        //sharingIntent.putExtra(Intent.EXTRA_TEXT, ""); текст сообщения
 
         // находим свой каталог для файла
         File sdPath = new File(this.getFilesDir().getAbsolutePath());
@@ -344,14 +420,15 @@ public class TeacherMainPage extends AppCompatActivity {
 
         {// шапка таблицы
             Row row = sheet.createRow(0);
-            Cell[] cells = new Cell[6];
+            Cell[] cells = new Cell[7];
             for (int i = 0; i < cells.length; i++) cells[i] = row.createCell(i);
-            cells[0].setCellValue("Дата");
-            cells[1].setCellValue("Время");
-            cells[2].setCellValue("ФИО");
-            cells[3].setCellValue("Группа");
-            cells[4].setCellValue("Событие");
-            cells[5].setCellValue("Корпус посещения1");
+            cells[0].setCellValue("Id москвёнок");
+            cells[1].setCellValue("Дата");
+            cells[2].setCellValue("Время");
+            cells[3].setCellValue("ФИО");
+            cells[4].setCellValue("Группа");
+            cells[5].setCellValue("Событие");
+            cells[6].setCellValue("Корпус посещения");
         }
 
         // тело таблицы
@@ -366,23 +443,27 @@ public class TeacherMainPage extends AppCompatActivity {
 
             // строка
             Row row = sheet.createRow(excelRowPoz);
-            Cell[] cells = new Cell[6];
+            Cell[] cells = new Cell[7];
             for (int i = 0; i < cells.length; i++) cells[i] = row.createCell(i);
-            cells[0].setCellValue(dateFormat.format(point));
-            cells[1].setCellValue(timeFormat.format(point));
-            if (current.student == null) {
-                cells[2].setCellValue("-");
+
+            cells[0].setCellType(CellType.STRING);
+            cells[0].setCellValue(current.moskvenokId);
+
+            cells[1].setCellValue(dateFormat.format(point));
+            cells[2].setCellValue(timeFormat.format(point));
+            if (current == null) {
                 cells[3].setCellValue("-");
+                cells[4].setCellValue("-");
             } else {
-                cells[2].setCellValue(current.student.name);
-                cells[3].setCellValue(current.student.group);
+                cells[3].setCellValue(current.name);
+                cells[4].setCellValue(current.group);
                 //DataFormat format = openedBook.createDataFormat();
                 //        CellStyle dateStyle = openedBook.createCellStyle();
                 //        dateStyle.setDataFormat(format.getFormat("(ss.MM.hh) dd.mm.yyyy"));
                 //        birthdate.setCellStyle(dateStyle);
             }
-            cells[4].setCellValue("вход");
-            cells[5].setCellValue("ГБОУ Школа № 1852");// TODO
+            cells[5].setCellValue("вход");// TODO в тексты
+            cells[6].setCellValue("ГБОУ Школа № 1852");// TODO в тексты / корпус??
 
 
             excelRowPoz++;
@@ -425,34 +506,25 @@ public class TeacherMainPage extends AppCompatActivity {
     }
 }
 
-class Student {
-    long id;
-    String name;
-    String group;
-//    String surname;
-//    String last_name;
-
-    /*
-     * пришлось сделать id москвенок string так как в int он не влазит
-     * */
-
-    public Student(long id, String name, String group) {
-        this.id = id;
-        this.name = name;
-        this.group = group;
-    }
-}
-
 class EnteredUnit {
     long unixTimePoint;
-    Student student;
-    long enteredId;
+
+    long enteredAttitudeId;
+
+    long moskvenokId;
+    String name;
+    String group;
+
     RelativeLayout relativeLayout;
 
-    public EnteredUnit(long unixTimePoint, Student student, long enteredId, RelativeLayout relativeLayout) {
+
+    public EnteredUnit(long unixTimePoint, long enteredAttitudeId, long moskvenokId, String name,
+                       String group, RelativeLayout relativeLayout) {
+        this.enteredAttitudeId = enteredAttitudeId;
         this.unixTimePoint = unixTimePoint;
-        this.student = student;
-        this.enteredId = enteredId;
+        this.moskvenokId = moskvenokId;
+        this.name = name;
+        this.group = group;
         this.relativeLayout = relativeLayout;
     }
 
