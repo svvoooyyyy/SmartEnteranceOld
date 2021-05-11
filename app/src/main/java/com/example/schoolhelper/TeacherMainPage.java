@@ -52,7 +52,7 @@ public class TeacherMainPage extends AppCompatActivity {
 
 
     private static final int ACTIVITY_BACK_CODE = 20;
-    public static final int RESULT_CLEAR_DATA = 81;
+    public static final int RESULT_CLEAR_DATA = 81; //
     public static final int RESULT_UPDATE = 82;
     // имя файла
     public static final String FILE_NAME = "saved_data.xls";
