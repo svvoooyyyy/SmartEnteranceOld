@@ -30,6 +30,15 @@
     <string name="teacher_menu_share_button_text">Поделиться</string>
     <string name="student_menu_button_settings_text">Настройки</string>
     <string name="settings_delete_dialog_text">Вся информация будет удалена. Вы точно хотите продолжить?</string>
+    <string name="settings_delete_dialog_title">удалить</string>
+    <string name="teacher_out_list_element_name_text">имя</string>
+    <string name="teacher_out_list_element_name_text_error">Ученик не найден в базе</string>
+    <string name="cell_text_enter">вход</string>
+    <string name="cell_text_corpus">ГБОУ Школа № 1852</string>
+    <string name="teacher_settings_toast_text_sd_card_access">sd карта недоступна</string>
+    <string name="teacher_settings_toast_text_file_format">необходим файл формата .xls</string>
+    <string name="teacher_settings_toast_text_import_error">ошибка загрузки</string>
+    <string name="teacher_settings_toast_text_import_permission">чтобы открыть файл нужно разрешение</string>
 
 
 </resources>

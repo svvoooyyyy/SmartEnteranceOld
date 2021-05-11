@@ -50,7 +50,9 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
 //                values.put(SchoolContract.TableSettingsData.COLUMN_INTERFACE_SIZE, 1);
 //                db.insert(SchoolContract.TableSettingsData.NAME_TABLE_SETTINGS, null, values);
 //            }
-        } else if (oldVersion < 2) {
+        }
+
+        if (oldVersion < 2) {
 
             // создание таблицы вошедших учеников
             String sql = "CREATE TABLE " + Contract.TableEnteredLearners.NAME_TABLE_LEARNERS + "( " +

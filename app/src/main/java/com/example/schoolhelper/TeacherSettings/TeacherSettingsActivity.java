@@ -91,8 +91,8 @@ public class TeacherSettingsActivity extends AppCompatActivity implements Import
                         PackageManager.PERMISSION_DENIED) {// если нет разрешения запрашиваем его
 
                     Toast.makeText(TeacherSettingsActivity.this,
-                            "#Чтобы считать данные, нужно разрешение на чтение файлов#",
-                            Toast.LENGTH_SHORT
+                            getResources().getText(R.string.teacher_settings_toast_text_import_permission),
+                            Toast.LENGTH_LONG
                     ).show();
                     /*private static String[] PERMISSIONS_STORAGE = {
                         Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -105,7 +105,7 @@ public class TeacherSettingsActivity extends AppCompatActivity implements Import
 
                     // проверяем доступность SD
                     if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                        Toast.makeText(TeacherSettingsActivity.this, "SD-карта не доступна ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(TeacherSettingsActivity.this, getResources().getText(R.string.teacher_settings_toast_text_sd_card_access), Toast.LENGTH_LONG).show();
                         return;
                     }
 
@@ -151,7 +151,7 @@ public class TeacherSettingsActivity extends AppCompatActivity implements Import
                 if (getFileName(uri).trim().endsWith(".xls")) {
                     readDataFromXlsFile(uri);
                 } else {
-                    Toast.makeText(this, "Необходим фйл формата .xls", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getText(R.string.teacher_settings_toast_text_file_format), Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -247,7 +247,7 @@ public class TeacherSettingsActivity extends AppCompatActivity implements Import
             }
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Ошибка загрузки", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getText(R.string.teacher_out_list_element_name_text_error), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         } finally {
             // закрываем поток чтения

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -76,8 +77,9 @@ public class StudentMainPage extends AppCompatActivity {
         nameText.setText(name);
 
         // код
-        long code = preferences.getLong(StudentSettingsActivity.PREF_ID, -1);
-        if (code >= 0 && code <= 9999999999L) { // todo размеры кода
+        long code = preferences.getLong(StudentSettingsActivity.PREF_ID, -1L);
+
+        if (code >= 0L && code <= 9999999999L) {
             codeText.setText(String.format(Locale.getDefault(), "%010d", code));
 
             // creating qr code

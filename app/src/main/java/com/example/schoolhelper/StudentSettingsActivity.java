@@ -20,6 +20,7 @@ public class StudentSettingsActivity extends AppCompatActivity {
     public static final String PREF_ID = "learner_id";
 
     EditText name_edit_text;
+    EditText id_edit_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +31,19 @@ public class StudentSettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         name_edit_text = findViewById(R.id.student_settings_edit_text_name);
+        id_edit_text = findViewById(R.id.student_settings_edit_text_id);
 
         // выставление текста для редактирования
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         // имя
         String name = preferences.getString(StudentSettingsActivity.PREF_NAME,
                 getResources().getString(R.string.no_name_text));
-        if (!name.equals(getResources().getString(R.string.no_name_text))) {
+        if (!name.equals(getResources().getString(R.string.no_name_text)) && !name.equals("")) {
             name_edit_text.setText(name);
+        }
+        Long id = preferences.getLong(StudentSettingsActivity.PREF_ID, -1L);
+        if (id > 0L && id < 9999999999L) {
+            id_edit_text.setText(id.toString());
         }
 
         // сброс пользовательского режима
@@ -50,6 +56,8 @@ public class StudentSettingsActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = preferences.edit();
                 // name
                 editor.putString(StudentSettingsActivity.PREF_NAME, getResources().getString(R.string.no_name_text));
+                editor.putLong(StudentSettingsActivity.PREF_ID, -1L);
+
 
                 editor.putInt(MainActivity.PREF_USER_MODE, -1);
                 editor.apply();
@@ -73,8 +81,16 @@ public class StudentSettingsActivity extends AppCompatActivity {
                 } else {
                     editor.putString(PREF_NAME, getResources().getString(R.string.no_name_text));
                 }
-                // todo проверка на валидность  PREF_ID
-                editor.putLong(PREF_ID, 123456789);// todo
+                if (android.text.TextUtils.isDigitsOnly(id_edit_text.getText().toString().trim())) {
+                    if (id_edit_text.getText().toString().trim().equals("")) {
+                        editor.putLong(PREF_ID, -1L);
+                    } else {
+                        editor.putLong(PREF_ID, Long.parseLong(id_edit_text.getText().toString().trim()));
+                        Log.e("TAG", "onClick: " + Long.parseLong(id_edit_text.getText().toString().trim()));
+                    }
+                } else {
+                    editor.putLong(PREF_ID, -1L);
+                }
                 editor.apply();
 
                 setResult(StudentMainPage.RESULT_UPDATE);

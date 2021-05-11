@@ -1,20 +1,15 @@
 package com.example.schoolhelper;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         // получение данных
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int userMode = preferences.getInt(PREF_USER_MODE, -1);
+        Log.e("TAG", "onCreate: " + preferences.getLong(StudentSettingsActivity.PREF_ID, -1L) );
         switch (userMode) {
             case -1:
                 break;

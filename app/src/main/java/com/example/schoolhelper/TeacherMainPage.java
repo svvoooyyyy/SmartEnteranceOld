@@ -7,9 +7,11 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -149,11 +151,12 @@ public class TeacherMainPage extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(TeacherMainPage.this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED) {
 
-            Toast.makeText(this, "#Чтобы сохранить данные, нужно разрешение на запись файлов#", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.teacher_settings_toast_text_import_permission), Toast.LENGTH_SHORT).show();
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 123);
             finish();
 
-        } else {// если разрешение есть
+        } else
+            {// если разрешение есть
             CodeScannerView scannerView = findViewById(R.id.scanner_view);
             mCodeScanner = new CodeScanner(this, scannerView);
             mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -177,7 +180,7 @@ public class TeacherMainPage extends AppCompatActivity {
                             if (errorFlag) {
                                 Toast.makeText(
                                         TeacherMainPage.this,
-                                        "неверный QR код: \"" + result.getText() + "\"",
+                                        getResources().getText(R.string.teacher_toast_text_invalid_qr_code) + ": \"" + result.getText() + "\"",
                                         Toast.LENGTH_LONG
                                 ).show();
                             } else if (code != -1) {
@@ -195,7 +198,6 @@ public class TeacherMainPage extends AppCompatActivity {
             });
         }
 
-
         // пробегаемся по введенным ученикам
         DataBaseOpenHelper db = new DataBaseOpenHelper(this);
         Cursor enteredStudents = db.getEnteredStudents();
@@ -212,9 +214,9 @@ public class TeacherMainPage extends AppCompatActivity {
             View view = getLayoutInflater().inflate(R.layout.out_list_element, container);
             RelativeLayout relativeLayout = view.findViewById(R.id.out_relative_layout);
             TextView nameTextView = view.findViewById(R.id.out_list_element_text_name);
-            nameTextView.setText("name");// todo в текстовые файлы
+            nameTextView.setText(getResources().getText(R.string.teacher_out_list_element_name_text));
             TextView idTextView = view.findViewById(R.id.out_list_element_text_id);
-            idTextView.setText("id");// todo в текстовые файлы
+            idTextView.setText(getResources().getText(R.string.teacher_out_list_element_id_text));
 
 
             // находим сведения об ученике
@@ -224,13 +226,13 @@ public class TeacherMainPage extends AppCompatActivity {
             long enteredMoskvenokId = enteredStudents.getLong(enteredStudents.getColumnIndex(
                     Contract.TableEnteredLearners.COLUMN_ENTERED_MOSKVENOK_ID
             ));
-            Cursor student = db.getAuthorizedStudentById(enteredAttitudeId);
+            final Cursor student = db.getAuthorizedStudentById(enteredAttitudeId);
 
 
             // заполняем данными
             final EnteredUnit enteredUnit;
             if (student.getCount() == 0) {
-                nameTextView.setText("Ученик не найден в базе");// todo в текстовые файлы
+                nameTextView.setText(getResources().getText(R.string.teacher_out_list_element_name_text_error));
                 nameTextView.setTextColor(getResources().getColor(R.color.colorError));
                 idTextView.setText(String.format(Locale.getDefault(), "%010d", enteredMoskvenokId));
                 enteredUnit = new EnteredUnit(
@@ -256,8 +258,27 @@ public class TeacherMainPage extends AppCompatActivity {
                 idTextView.setText(String.format(Locale.getDefault(), "%010d", enteredMoskvenokId));
             }
             studentsList.add(enteredUnit);
+
+            // нажатие на кнопку
+            view.findViewById(R.id.out_list_element_button_delete).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // удаляем запись о том что ученик вошел
+                    // из разметки
+                    learnersOut.removeView(enteredUnit.relativeLayout);
+                    // из бд
+                    DataBaseOpenHelper db = new DataBaseOpenHelper(TeacherMainPage.this);
+                    db.deleteEnteredStudentByRecordId(enteredUnit.enteredAttitudeId);
+                    db.close();
+
+                    // из листа
+                    studentsList.remove(enteredUnit);
+                }
+            });
+
         }
         enteredStudents.close();
+
 
         // остальное
         setResult(MainActivity.RESULT_BACK, null);
@@ -269,7 +290,11 @@ public class TeacherMainPage extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mCodeScanner.startPreview();
+
+
     }
+
+
 
     @Override
     protected void onPause() {
@@ -286,7 +311,7 @@ public class TeacherMainPage extends AppCompatActivity {
                 setResult(MainActivity.RESULT_NULL, null);
                 finish();
             } else if (resultCode == RESULT_UPDATE) {
-                //updateFields(); todo ване
+                //updateFields(); todo ване при сохранении изменений в настройках вызываь этот код
             }
         }
 
@@ -308,9 +333,9 @@ public class TeacherMainPage extends AppCompatActivity {
 
         View view = getLayoutInflater().inflate(R.layout.out_list_element, container);
         TextView nameTextView = view.findViewById(R.id.out_list_element_text_name);
-        nameTextView.setText("name");// todo в текстовые файлы
+        nameTextView.setText(getResources().getText(R.string.teacher_out_list_element_name_text));
         TextView idTextView = view.findViewById(R.id.out_list_element_text_id);
-        idTextView.setText("id");// todo в текстовые файлы
+        idTextView.setText(getResources().getText(R.string.teacher_out_list_element_id_text));
 
 
         DataBaseOpenHelper db = new DataBaseOpenHelper(this);
@@ -319,7 +344,7 @@ public class TeacherMainPage extends AppCompatActivity {
         // создание записи
         final EnteredUnit enteredUnit;
         if (students.getCount() == 0) {
-            nameTextView.setText("Ученик не найден в базе");// todo в текстовые файлы
+            nameTextView.setText(getResources().getText(R.string.teacher_out_list_element_name_text_error));
             nameTextView.setTextColor(getResources().getColor(R.color.colorError));
             idTextView.setText(String.format(Locale.getDefault(), "%010d", id));
             // создаем запись о том что ввели ученика
@@ -357,7 +382,7 @@ public class TeacherMainPage extends AppCompatActivity {
         students.close();
         db.close();
 
-        // нажатие на текст
+        // нажатие на кнопку
         view.findViewById(R.id.out_list_element_button_delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -462,8 +487,8 @@ public class TeacherMainPage extends AppCompatActivity {
                 //        dateStyle.setDataFormat(format.getFormat("(ss.MM.hh) dd.mm.yyyy"));
                 //        birthdate.setCellStyle(dateStyle);
             }
-            cells[5].setCellValue("вход");// TODO в тексты
-            cells[6].setCellValue("ГБОУ Школа № 1852");// TODO в тексты / корпус??
+            cells[5].setCellValue("вход");
+            cells[6].setCellValue("ГБОУ Школа № 1852");// корпус??
 
 
             excelRowPoz++;

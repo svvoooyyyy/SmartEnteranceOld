@@ -31,6 +31,16 @@
     <string name="teacher_menu_settings_button_text">Settings</string>
     <string name="teacher_menu_share_button_text">Share</string>
     <string name="out_list_element_text_id" translatable="false"><![CDATA[<code example>]]></string>
+    <string name="teacher_out_list_element_name_text">name</string>
+    <string name="teacher_out_list_element_id_text" translatable="false">id</string>
+    <string name="teacher_out_list_element_name_text_error">no student in database</string>
+    <string name="cell_text_enter">enter</string>
+    <string name="cell_text_corpus">school №1852</string>
+    <string name="teacher_settings_toast_text_import_permission">to open file permission needed</string>
+    <string name="teacher_toast_text_invalid_qr_code">invalid qr code</string>
+    <string name="teacher_settings_toast_text_sd_card_access">sd card not available</string>
+    <string name="teacher_settings_toast_text_file_format">xls file is required</string>
+    <string name="teacher_settings_toast_text_import_error">import error</string>
 
 <!--    dialog-->
     <string name="settings_delete_dialog_text">All information will be delete. Do you want to continue?</string>
